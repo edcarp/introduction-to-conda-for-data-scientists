@@ -5,12 +5,15 @@ exercises: 15
 questions:
 - "Why should I share my Conda environment with others?"
 - "How do I share my Conda environment with others?"
-- "Create an environment from a YAML file that can be read by Windows, Mac OS, or Linux."
-- "Create an environment based on exact package versions."
-- "Create a custom kernel for a Conda environment for use inside JupyterLab and Jupyter notebooks."
+- "How do I create an environment file that can be read by Windows, Mac OS, or Linux."
+- "How do I specifying the package version in a Conda environment file."
+objectives:
+- "Understand why you would create an Conda environment file."
+- "Create a Conda environment file in a text editor, specifying the channel, packages and their version."
+- "Use the `conda env` subcommand to export a given environment to a environment file."
 keypoints:
-- "Sharing Conda environments with other researchers facilitates the reprodicibility of your research."
-- "Create an`environment.yml` file that describes your project's software environment."
+- "Sharing Conda environments with other researchers facilitates the reproducibility of your research."
+- "Conda environment files ,`environment.yml`, describes your project's software environment."
 
 ---
 
@@ -67,8 +70,8 @@ dependencies:
 
 This `environment.yml` file would create an environment called `rnaseq-env` with the
 most current and mutually compatible versions of the listed packages (including all required
-dependencies). The newly created environment would be installed inside the `~/miniconda3/envs/`
-directory, unless we specified a different path using `--prefix`.
+dependencies) download from the bioconda channel. The newly created environment would be installed inside the `~/miniconda3/envs/`
+directory, unless we specified a different path using `conda create` command line option `--prefix` or `-p`.
 
 Since explicit versions numbers for all packages should be preferred a better environment
 file would be the following.
