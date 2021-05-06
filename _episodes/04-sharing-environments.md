@@ -14,6 +14,10 @@ keypoints:
 
 ---
 
+## Reproducible research
+
+Conda environments are useful when making bioinformatics projects reproducible. Full reproducibility requires the ability to recreate the system that was originally used to generate the results. This can, to a large extent, be accomplished by using a Conda environment file to make an environment with specific versions of the packages that are needed in the project. This environment file can then be shared with others users to reproduce your analysis environment containing software with the same version number.
+
 ## Working with environment files
 
 When working on a collaborative research project it is often the case that your operating system
