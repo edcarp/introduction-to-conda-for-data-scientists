@@ -49,19 +49,19 @@ Let's take a look at a few example `environment.yml` files  to give you an idea 
 your own environment files.
 
 ~~~
-name: machine-learning-env
-
+name: rnaseq-env
+channels:
+  - bioconda
 dependencies:
-  - ipython
-  - matplotlib
-  - pandas
-  - pip
-  - python
-  - scikit-learn
+  - salmon
+  - samtools
+  - fastqc
+  - nextflow
+  - snakemake
 ~~~
 {: .language-yaml}
 
-This `environment.yml` file would create an environment called `machine-learning-env` with the
+This `environment.yml` file would create an environment called `rnaseq-env` with the
 most current and mutually compatible versions of the listed packages (including all required
 dependencies). The newly created environment would be installed inside the `~/miniconda3/envs/`
 directory, unless we specified a different path using `--prefix`.
@@ -70,15 +70,15 @@ Since explicit versions numbers for all packages should be preferred a better en
 file would be the following.
 
 ~~~
-name: machine-learning-env
-
+name: rnaseq-env
+channels:
+  - bioconda
 dependencies:
-  - ipython=7.13
-  - matplotlib=3.1
-  - pandas=1.0
-  - pip=20.0
-  - python=3.6
-  - scikit-learn=0.22
+  - salmon=
+  - samtools=
+  - fastqc=
+  - nextflow=
+  - snakemake=
 ~~~
 {: .language-yaml}
 
@@ -87,6 +87,29 @@ numbers. Defining the version number by fixing only the major and minor version 
 allowing the patch version number to vary allows us to use our environment file to update our
 environment to get any bug fixes whilst still maintaining significant consistency of our
 Conda environment across updates.
+
+> ## Specifying channels in the environment.yml
+>
+> We learned in the previous episode, that some packages may need to be installed from other than the
+> defaults channel. We can also specify the channels, that conda should look for the packages within the
+> environment.yml file:
+>
+> ~~~
+> name: pytorch-env
+>
+> channels:
+>   - pytorch
+>   - defaults
+>
+> dependencies:
+>   - pytorch=1.1
+> ~~~
+> {: .language-yaml}
+>
+> When the above file is used to create an environment, conda would first look in the `pytorch` channel for
+> all packages mentioned under `dependencies`. If they exist in the `pytorch` channel, conda would install
+> them from there, and not look for them in `defaults` at all.
+{: .callout}
 
 > ## *Always* version control your `environment.yml` files!
 >
@@ -121,24 +144,24 @@ your `project-dir` directory.
 
 ## Automatically generate an `environment.yml`
 
-To export the packages installed into the previously created `machine-learning-env` you can run the
+To export the packages installed into the previously created `rnaseq-env` you can run the
 following command:
 
 ~~~
-$ conda env export --name machine-learning-env
+$ conda env export --name rnaseq-env
 ~~~
 {: .language-bash}
 
 When you run this command, you will see the resulting YAML formatted representation of your Conda
 environment streamed to the terminal. Recall that we only listed five packages when we
-originally created `machine-learning-env` yet from the output of the `conda env export` command
-we see that these five packages result in an environment with roughly 80 dependencies!
+originally created `rnaseq-env` yet from the output of the `conda env export` command
+we see that these  packages result in an environment with a large number of dependencies!
 
 To export this list into an environment.yml file, you can use `--file` option to directly save the
 resulting YAML environment into a file.
 
 ~~~
-$ conda env export --name machine-learning-env --file environment.yml
+$ conda env export --name rnaseq-env --file environment.yml
 ~~~
 {: .language-bash}
 
@@ -154,7 +177,7 @@ and Linux, then you are better off just including those packages into the enviro
 specifically installed.
 
 ~~~
-$ conda env export --name machine-learning-env --from-history --file environment.yml
+$ conda env export --name rnaseq-env --from-history --file environment.yml
 ~~~
 {: .language-bash}
 
@@ -167,8 +190,8 @@ make sure to add the `--from-history` argument to the `conda env export` command
 > directory with the following contents.
 >
 > ~~~
-> name: scikit-learn-env
->
+> name: rnaseq-env
+> channels: bioconda
 > dependencies:
 >   - ipython=7.13
 >   - matplotlib=3.1
@@ -188,8 +211,8 @@ make sure to add the `--from-history` argument to the `conda env export` command
 > > To create a new environment from a YAML file use the `conda env create` sub-command as follows.
 > >
 > > ~~~
-> > $ mkdir scikit-learn-project-dir
-> > $ cd scikit-learn-project-dir
+> > $ mkdir rnaseq-project-dir
+> > $ cd rnaseq-project-dir
 > > $ nano environment.yml
 > > $ conda env create --file environment.yml
 > > ~~~
@@ -210,28 +233,7 @@ make sure to add the `--from-history` argument to the `conda env export` command
 > {: .solution}
 {: .challenge}
 
-> ## Specifying channels in the environment.yml
->
-> We learned in the previous episode, that some packages may need to be installed from other than the
-> defaults channel. We can also specify the channels, that conda should look for the packages within the
-> environment.yml file:
->
-> ~~~
-> name: pytorch-env
->
-> channels:
->   - pytorch
->   - defaults
->
-> dependencies:
->   - pytorch=1.1
-> ~~~
-> {: .language-yaml}
->
-> When the above file is used to create an environment, conda would first look in the `pytorch` channel for
-> all packages mentioned under `dependencies`. If they exist in the `pytorch` channel, conda would install
-> them from there, and not look for them in `defaults` at all.
-{: .callout}
+
 
 
 ### Updating an environment
@@ -268,11 +270,9 @@ from the environment.
 > {: .language-bash}
 {: .callout}
 
-> ## Add Dask to the environment to scale up your analytics
+> ## Add the pseudo-aligner kallisto to the environment
 >
-> Add to the `scikit-env` environment file and update the environment. [Dask](https://dask.org/)
-> provides advanced parallelism for data science workflows enabling performance at scale for the
-> core Python data science tools such as Numpy Pandas, and Scikit-Learn.  
+> Add to the `rnaseq-env` environment file and update the environment. [Dask](kallisto://pachterlab.github.io/kallisto/)
 >
 > > ## Solution
 > >
@@ -280,7 +280,7 @@ from the environment.
 > >
 > > ~~~
 > > name: scikit-learn-env
-> >
+> > channels: bioconda
 > > dependencies:
 > >   - dask=2.16
 > >   - dask-ml=1.4
@@ -300,7 +300,7 @@ from the environment.
 > > ~~~
 > > {: .language-bash}
 > >
-> > Or, if you just want to update the environment in-place with the new Dask dependencies, you can use:
+> > Or, if you just want to update the environment in-place with the new kallisto dependencies, you can use:
 > >
 > > ~~~
 > > $ conda env update --prefix ./env --file environment.yml  --prune
