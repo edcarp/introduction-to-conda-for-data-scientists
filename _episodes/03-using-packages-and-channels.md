@@ -119,7 +119,7 @@ The `conda-forge` channel
 Bioconda is a channel, maintained by the [Bioconda project](https://bioconda.github.io)),   specialising in bioinformatics software. Bioconda contains 1000's of  bioinformatics packages ready to use with conda install.
 
 > R and Bioconductor packages
-> Most R packages on CRAN should be submitted at Conda-Forge. Specifically, if the CRAN  package has a Bioconductor package dependency, it belongs in Bioconda. If the CRAN package does not have a Bioconductor package dependency, it belongs in Conda-Forge.
+> Most R packages on CRAN should be submitted at Conda-Forge. However, if the CRAN  package has a Bioconductor, a repository for bioinformatics R packages,  dependency, it belongs in Bioconda. If the CRAN package does not have a Bioconductor package dependency, it belongs in Conda-Forge.
 {: .callout}
 
 ## How do I install a package from a specific channel?
@@ -129,7 +129,7 @@ passing the `--channel` or `-c` option to the `conda install` command as follows
 
 ~~~
 $ conda activate rnaseq-env
-$ conda install scipy=1.6 --channel bioconda
+$ conda install salmon=1.1 --channel bioconda
 ~~~
 {: .language-bash}
 
@@ -140,15 +140,15 @@ following command installs the `bedtools` package from the `bioconda` channel in
 called `my-first-conda-env` which we created earlier.
 
 ~~~
-$ conda install bedtools=2 --channel bioconda --name my-first-conda-envv
+$ conda install bedtools=2.25 --channel bioconda --name my-first-conda-envv
 ~~~
 {: .language-bash}
 
-This command would install `tensorflow` package from `bioconda` channel into an environment
+This command would install `bedtools` package from `bioconda` channel into an environment
 installed into the `env/` sub-directory.
 
 ~~~
-$ conda install tensorflow=1.14 --channel bioconda --prefix ./env
+$ conda install bedtools=2.25 --channel bioconda --prefix ./env
 ~~~
 {: .language-bash}
 
@@ -162,22 +162,58 @@ $ conda install bioconductor-deseq2=1.30 --channel bioconda --prefix ./env
 ~~~
 {: .language-bash}
 
-> ## Channel priority
->
-> You may specify multiple channels for installing packages by passing the `--channel` argument
-> multiple times.
->
-> ~~~
-> $ conda install scipy=1.6 --channel conda-forge --channel bioconda
-> ~~~
-> {: .language-bash}
->
-> Channel priority decreases from left to right - the first argument has higher priority than the
-> second. For reference, bioconda is a channel for the conda package manager specializing in
-> bioinformatics software. For those interested in learning more about the Bioconda project,
-> checkout the project's [GitHub](https://bioconda.github.io/) page.
->
-> Please note that in our example, adding `bioconda` channel is irrelevant because `scipy` is no longer available on `bioconda` channel.
+## Specify multiple channels
+
+You may specify multiple channels for installing packages by passing the `--channel` argument
+multiple times.
+
+ ~~~
+ $ conda install numpy=1.20 --channel conda-forge --channel defaults
+ ~~~
+ {: .language-bash}
+
+ ## Channel priority
+
+ Different channels can have the same package, so conda must decide which channel to install the package from. In the above example Channel priority decreases from left to right - If a package if found in the first channel  `conda-forge` then it has higher priority than the second `defaults`. This is true even, if the version number of the package is higher in the second channel.  
+
+ ## Adding channels
+
+By default conda will only search the `default` channel.
+You can see this by typing the command below.
+~~~
+conda config --show channels
+~~~
+{: .language-bash}
+
+This will output.
+
+~~~
+channels:
+  - defaults
+~~~
+{: .output}
+
+If you want to add a channel to your Conda configuration `~/.condarc` the following command will add the channel "bioconda" to the top of the channel list, making it the highest priority.
+~~~
+conda config --add channels bioconda
+ ~~~
+{: .language-bash}
+
+~~~
+conda config --show channels
+~~~
+{: .language-bash}
+
+~~~
+channels:
+  - bioconda
+  - defaults
+~~~
+
+If you use the `.condarc` to specify your channels then the priority order is from bottom to top.
+
+> ## Channel order
+> It is generally best to have conda-forge as the higest priority channel.
 {: .callout}
 
 ## My package isn't available on the `defaults` channel! What should I do?
@@ -407,22 +443,20 @@ environment.
 
 > ## Installing packages into Conda environments using `pip`
 >
-> [Combo](https://github.com/yzhao062/combo) is a comprehensive Python toolbox for combining
-> machine learning models and scores. Model combination can be considered as a subtask of
-> [ensemble learning](https://en.wikipedia.org/wiki/Ensemble_learning), and has been widely used
-> in real-world tasks and data science competitions like [Kaggle](https://www.kaggle.com/).
+> [deepTools](https://deeptools.readthedocs.io/en/develop/index.html)  is a suite of python tools particularly
+>  developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq.
 >
-> Activate the `machine-learning-env` you created in a previous challenge and use `pip` to install
+> Activate the `rnaseq-env` you created in a previous challenge and use `pip` to install
 > `combo`.
 >
 > > ## Solution
 > >
-> > The following commands will activate the `basic-scipy-env` and install `combo`.
+> > The following commands will activate the `rnaseq-env` and install `combo`.
 > >
 > > ~~~
 > > $ conda install --name rnaseq-env pip
 > > $ conda activate rnaseq-env
-> > $ python -m pip install combo==0.1.*
+> > $ python -m pip install deeptools==2.*
 > > ~~~
 > > {: .language-bash}
 > >
