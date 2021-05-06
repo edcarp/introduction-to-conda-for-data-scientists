@@ -110,13 +110,17 @@ The `conda-forge` channel
 
  1. Packages on `conda-forge` may be more up-to-date than those on the `defaults` channel.
  2. There are packages on the `conda-forge` channel that aren't available from `defaults`.
- 3. You may wish to use a dependency such as `openblas` (from `conda-forge`) instead of `mkl`
-> (from `defaults`).
-{: .callout}
+ 3. You may wish to use a dependency such as `openblas` (from `conda-forge`) instead of `mkl`(from `defaults`).
+
+
 
 ## The `bioconda` channel
 
 Bioconda is a channel, maintained by the [Bioconda project](https://bioconda.github.io)),   specialising in bioinformatics software. Bioconda contains 1000's of  bioinformatics packages ready to use with conda install.
+
+> R and Bioconductor packages
+> Most R packages on CRAN should be submitted at Conda-Forge. Specifically, if the CRAN  package has a Bioconductor package dependency, it belongs in Bioconda. If the CRAN package does not have a Bioconductor package dependency, it belongs in Conda-Forge.
+{: .callout}
 
 ## How do I install a package from a specific channel?
 
