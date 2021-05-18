@@ -41,34 +41,51 @@ For a more details of the conda package specification, including discussions of 
 metadata files, see the [docs][conda-pkg-spec-docs].
 
 As an example of Conda package structure consider the Conda package for
-bedtools targeting a 64-bit Linux, `pytorch-1.1.0-py3.6_0.tar.bz2`.
+salmon targeting a 64-bit Linux, `salmon-1.4.0-h84f40af_1.tar.bz2`.
 
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
 ├── bin
-│   └── convert-caffe2-to-onnx
-│   └── convert-onnx-to-caffe2
+│   └── salmon
 ├── info
-│   ├── LICENSE.txt
-│   ├── about.json
-│   ├── files
-│   ├── git
-│   ├── has_prefix.json
-│   ├── hash_input.json
-│   ├── index.json
-│   ├── paths.json
-│   ├── recipe/
-│   └── test/
+│   ├── about.json
+│   ├── files
+│   ├── git
+│   ├── hash_input.json
+│   ├── has_prefix
+│   ├── index.json
+│   ├── licenses
+│   │   └── LICENSE
+│   ├── paths.json
+│   ├── recipe
+│   │   ├── 0.14.2-1
+│   │   │   ├── build.sh
+│   │   │   └── meta.yaml
+│   │   ├── build.sh
+│   │   ├── conda_build_config.yaml
+│   │   ├── meta.yaml
+│   │   ├── meta.yaml.template
+│   │   └── run_test.sh
+│   ├── repodata_record.json
+│   └── test
+│       ├── run_test.sh
+│       └── sample_data.tgz
 └── lib
-    └── python3.6
-        └── site-packages
-            ├── caffe2/
-            ├── torch/
-            └── torch-1.1.0-py3.6.egg-info/
+    ├── graphdump
+    │   ├── graphdump-targets.cmake
+    │   └── graphdump-targets-release.cmake
+    ├── libgraphdump.a
+    ├── libntcard.a
+    ├── libsalmon_core.a
+    ├── libtwopaco.a
+    ├── ntcard
+    │   ├── ntcard-targets.cmake
+    │   └── ntcard-targets-release.cmake
+    └── twopaco
+        ├── twopaco-targets.cmake
+        └── twopaco-targets-release.cmake
 </pre></div>
 </div>
 
-A complete listing of available PyTorch packages can be found on
-[Anaconda Cloud](https://anaconda.org/pytorch/pytorch/files).
 
 > ## Conda packages cache directory (pkgs_dirs)
 > When you first install a package, conda will download the tar.bz2 packages into the package cache directory defined by the conda variable pkgs_dirs. Before conda install a package it will look in the package directory .
@@ -79,218 +96,6 @@ A complete listing of available PyTorch packages can be found on
 > ~~~
 {: .callout}
 
-
-## What are Conda channels?
-
-Again from the [Conda documentation](https://conda.io/en/latest/), conda packages are downloaded from
-remote channels, which are URLs to directories containing conda packages. The `conda search` command
-searches a default set of channels, and packages are automatically downloaded and updated from the
-[Anaconda Cloud channels](https://repo.anaconda.com/pkgs/).
-
-*   `main`: The majority of all new Anaconda, Inc. package builds are hosted here. Included in
-    conda's defaults channel as the top priority channel.
-*   `r`: Microsoft R Open conda packages and [Anaconda, Inc.'s R conda packages](https://anaconda.org/r/repo).
-    This channel is included in conda's defaults channel. When creating new environments, MRO is
-    now chosen as the default R implementation.
-
-Collectively, the Anaconda managed channels are referred to as the `defaults` channel because,
-unless otherwise specified, packages installed using `conda` will be downloaded from these
-channels.
-
-
-The `conda-forge` channel
-
- In addition to the `default` channels that are managed by Anaconda Inc., there is another
- channel called that also has a special status. The [Conda-Forge](https://github.com/conda-forge)
- project "is a community led collection of recipes, build infrastructure and distributions for
- the conda package manager."
-
- There are a few reasons that you may wish to use the `conda-forge` channel instead of the
- `defaults` channel maintained by Anaconda:
-
- 1. Packages on `conda-forge` may be more up-to-date than those on the `defaults` channel.
- 2. There are packages on the `conda-forge` channel that aren't available from `defaults`.
- 3. You may wish to use a dependency such as `openblas` (from `conda-forge`) instead of `mkl`(from `defaults`).
-
-
-
-## The `bioconda` channel
-
-Bioconda is a channel, maintained by the [Bioconda project](https://bioconda.github.io)),   specialising in bioinformatics software. Bioconda contains 1000's of  bioinformatics packages ready to use with conda install.
-
-> R and Bioconductor packages
-> Most R packages on CRAN should be submitted at Conda-Forge. However, if the CRAN  package has a Bioconductor, a repository for bioinformatics R packages,  dependency, it belongs in Bioconda. If the CRAN package does not have a Bioconductor package dependency, it belongs in Conda-Forge.
-{: .callout}
-
-## How do I install a package from a specific channel?
-
-You can install a package from a specific channel into the currently activate environment by
-passing the `--channel` or `-c` option to the `conda install` command as follows.
-
-~~~
-$ conda activate rnaseq-env
-$ conda install salmon=1.1 --channel bioconda
-~~~
-{: .language-bash}
-
-
-You can also install a package from a specific channel into a named environment (using `--name` or `-n`)
-or into an environment installed at a particular prefix (using `--prefix` or `-p`). For example, the
-following command installs the `bedtools` package from the `bioconda` channel into the environment
-called `my-first-conda-env` which we created earlier.
-
-~~~
-$ conda install bedtools=2.25 --channel bioconda --name my-first-conda-envv
-~~~
-{: .language-bash}
-
-This command would install `bedtools` package from `bioconda` channel into an environment
-installed into the `env/` sub-directory.
-
-~~~
-$ conda install bedtools=2.25 --channel bioconda --prefix ./env
-~~~
-{: .language-bash}
-
-Here is another example for R and bioconductor users. The following command would install
-[`bioconductor-deseq2`](https://anaconda.org/bioconda/bioconductor-deseq2) package from the `bioconda` channel into an
-environment installed into the `env/` sub-directory.
-
-~~~
-$ cd ~/Desktop/introduction-to-conda-for-data-scientists
-$ conda install bioconductor-deseq2=1.30 --channel bioconda --prefix ./env
-~~~
-{: .language-bash}
-
-## Specify multiple channels
-
-You may specify multiple channels for installing packages by passing the `--channel` argument
-multiple times.
-
- ~~~
- $ conda install numpy=1.20 --channel conda-forge --channel defaults
- ~~~
- {: .language-bash}
-
- ## Channel priority
-
- Different channels can have the same package, so conda must decide which channel to install the package from. In the above example Channel priority decreases from left to right - If a package if found in the first channel  `conda-forge` then it has higher priority than the second `defaults`. This is true even, if the version number of the package is higher in the second channel.  
-
- ## Adding channels
-
-By default conda will only search the `default` channel.
-You can see this by typing the command below.
-~~~
-conda config --show channels
-~~~
-{: .language-bash}
-
-This will output.
-
-~~~
-channels:
-  - defaults
-~~~
-{: .output}
-
-If you want to add a channel to your Conda configuration `~/.condarc` the following command will add the channel "bioconda" to the top of the channel list, making it the highest priority.
-~~~
-conda config --add channels bioconda
- ~~~
-{: .language-bash}
-
-~~~
-conda config --show channels
-~~~
-{: .language-bash}
-
-~~~
-channels:
-  - bioconda
-  - defaults
-~~~
-
-If you use the `.condarc` to specify your channels then the priority order is from bottom to top.
-
-> ## Channel order
-> It is generally best to have conda-forge as the higest priority channel.
-{: .callout}
-
-## My package isn't available on the `defaults` channel! What should I do?
-
-It may very well be the case that packages (or often more recent versions of packages!) that you need to
-install for your project are not available on the `defaults` channel.  In this case you should try the
-following.
-
-1.  `conda-forge`: the `conda-forge` channel contains a large number of community curated conda
-    packages. Typically the most recent versions of packages that are generally available via the
-    `defaults` channel are available on `conda-forge` first.
-2. `bioconda`: the `bioconda` channel also contains a large number of Bioinformatics curated conda packages.
-    `bioconda` channel is meant to be used with `conda-forge`, you should not worried about using the two channels
-    when installing your prefered packages.
-2.  `pip`: only if a package is not otherwise available via `conda-forge` (or some
-    domain-specific channel like `bioconda`) should a package be installed into a conda
-    environment from PyPI using `pip`.
-
-For example, [Kaggle](https://www.kaggle.com/) publishes a Python 3 API that can be used to interact with Kaggle datasets, kernels and competition submissions. You can search for the package on the `defaults` channels but you will not find it!
-
-~~~
-$ conda search kaggle
-Loading channels: done
-No match found for: kaggle. Search: *kaggle*
-
-PackagesNotFoundError: The following packages are not available from current channels:
-
-  - kaggle
-
-Current channels:
-
-  - https://repo.anaconda.com/pkgs/main/osx-64
-  - https://repo.anaconda.com/pkgs/main/noarch
-  - https://repo.anaconda.com/pkgs/free/osx-64
-  - https://repo.anaconda.com/pkgs/free/noarch
-  - https://repo.anaconda.com/pkgs/r/osx-64
-  - https://repo.anaconda.com/pkgs/r/noarch
-
-To search for alternate channels that may provide the conda package you're
-looking for, navigate to
-
-    https://anaconda.org
-
-and use the search bar at the top of the page.
-~~~
-{: .language-bash}
-
-The [official installation instructions](https://github.com/Kaggle/kaggle-api) suggest downloading
-the `kaggle` package using `pip`. But since we are using `conda` we should check whether the
-package exists on at least `conda-forge` channel before proceeding to use `pip`.
-
-~~~
-$ conda search --channel conda-forge kaggle
-Loading channels: done
-# Name                       Version           Build  Channel             
-kaggle                         1.5.3          py27_1  conda-forge         
-kaggle                         1.5.3          py36_1  conda-forge         
-kaggle                         1.5.3          py37_1  conda-forge         
-kaggle                         1.5.4          py27_0  conda-forge         
-kaggle                         1.5.4          py36_0  conda-forge         
-kaggle                         1.5.4          py37_0  conda-forge         
-.
-.
-.
-~~~
-{: .language-bash}
-
-Or you can also check online at [https://anaconda.org/conda-forge/kaggle](https://anaconda.org/conda-forge/kaggle).
-
-Once we know that the `kaggle` package is available via `conda-forge` we can go ahead and install
-it.
-
-~~~
-$ conda install --channel conda-forge kaggle=1.5.10  --prefix ./env
-~~~
-{: .language-bash}
-
 ## What actually happens when I install packages?
 
 During the installation process, files are extracted into the specified environment (defaulting to
@@ -298,7 +103,7 @@ the current environment if none is specified). Installing the files of a conda p
 environment can be thought of as changing the directory to an environment, and then downloading
 and extracting the package and its dependencies.
 
-For example, when you `conda install` a package that exists in a channel and has no dependencies,
+For example, when you `conda install` a package that exists in a known repository, channel, and has no dependencies,
 conda does the following.
 
 1. looks at your configured channels (in priority)
@@ -312,31 +117,172 @@ The [conda documentation][conda-install-docs] has a nice decision tree that desc
     <img alt="Installing with Conda" src="../fig/installing-with-conda.png" width="250">
 </p>
 
+## Channel
+
+Let's create a new environment `basic-rnaseq-env` and install a transcript quantification package, [salmon](https://salmon.readthedocs.io/en/latest/salmon.html) , for an RNA-Seq analysis project.
+
+~~~
+conda create --name basic-rnaseq-env salmon
+~~~
+{: .language-bash}
+
+This will return;
+
+~~~
+Loading channels: done
+No match found for: salmon. Search: *salmon*
+
+PackagesNotFoundError: The following packages are not available from current channels:
+
+  - salmon
+
+Current channels:
+
+  - https://repo.anaconda.com/pkgs/main/linux-64
+  - https://repo.anaconda.com/pkgs/main/noarch
+  - https://repo.anaconda.com/pkgs/r/linux-64
+  - https://repo.anaconda.com/pkgs/r/noarch
+
+To search for alternate channels that may provide the conda package you're
+looking for, navigate to
+
+    https://anaconda.org
+
+and use the search bar at the top of the page.
+~~~
+{: output}
+
+What does `packages are not available` from current channels: mean?
+
+## What are Conda channels?
+
+When you `install` or `search` for a package in conda it search for it in a remote repositories called channels. These remote channel are URLs to directories containing conda packages. By default the `conda search` command searches a set of channels defined here.
+[Anaconda Cloud channels](https://repo.anaconda.com/pkgs/).
+
+*   `main`: The majority of all new Anaconda, Inc. package builds are hosted here. Included in conda's defaults channel as the top priority channel.
+*   `r`: Microsoft R Open conda packages and [Anaconda, Inc.'s R conda packages](https://anaconda.org/r/repo).
+    This channel is included in conda's defaults channel. When creating new environments, MRO is
+    now chosen as the default R implementation.
+
+Collectively, the Anaconda managed channels are referred to as the `defaults` channel because, unless otherwise specified, packages installed using `conda` will be downloaded from these channels.
+
+## My package isn't available on the `defaults` channel! What should I do?
+
+As was the case with `salmon` it may very well be the case that packages (or often more recent versions of packages!) that you need to install for your project are not available on the `defaults` channel.  In this case you should search for alternate channels that may provide the conda package you're looking for, To do this you should first navigate to
+
+    https://anaconda.org
+
+and use the search bar at the top of the page. If we search for salmon we will se it is aviable via a channel called bioconda.
+
+
+### bioconda
+
+ The `bioconda` channel
+
+Bioconda is a channel, maintained by the [Bioconda project](https://bioconda.github.io)),   specialising in bioinformatics software. Bioconda contains 1000's of  bioinformatics packages ready to use with conda install.
+
+> R and Bioconductor packages
+> Most R packages on CRAN should be submitted at Conda-Forge. However, if the CRAN  package has a Bioconductor, a repository for bioinformatics R packages,  dependency, it belongs in Bioconda. If the CRAN package does not have a Bioconductor package dependency, it belongs in Conda-Forge.
+{: .callout}
+
+### conda-forge
+
+The `conda-forge` channel
+
+ In addition to the `default` channels that are managed by Anaconda Inc., there is another channel called `Conda-Forge` that also has a special status. The [Conda-Forge](https://github.com/conda-forge) project "is a community led collection of recipes, build infrastructure and distributions for the conda package manager."
+
+ There are a number of reasons that you may wish to use the `conda-forge` channel instead of the `defaults` channel maintained by Anaconda:
+
+ 1. Packages on `conda-forge` may be more up-to-date than those on the `defaults` channel.
+ 2. There are packages on the `conda-forge` channel that aren't available from `defaults`.
+ 3. You may wish to use a dependency such as `openblas` (from `conda-forge`) instead of `mkl`(from `defaults`).
+
+## How do I search for a package from a specific channel?
+
+If you know the channel your package is likely to be located on, you can can use the `conda search`
+command with the `--channel ` option and the name of the channel. E.g.
+
+~~~
+conda search --channel bioconda salmon
+~~~
+{: .language-bash}
+
+~~~
+Loading channels: done
+# Name                       Version           Build  Channel
+salmon                         0.5.1               0  bioconda
+salmon                         0.6.0               0  bioconda
+...[truncated]...
+salmon                         1.3.0      hf69c8f4_0  bioconda
+salmon                         1.4.0      h84f40af_1  bioconda
+salmon                         1.4.0      hf69c8f4_0  bioconda
+salmon                         1.5.0      h84f40af_0  bioconda
+~~~
+{: .language-bash}
+
+
+
+## How do I install a package from a specific channel?
+
+If you know the channel your package is available from you can install a package from a specific channel into the currently activate environment by passing the `--channel` or `-c` option to the `conda install` command as follows.
+
+~~~
+$ conda create --name basic-rnaseq-env
+$ conda activate basic-rnaseq-env
+$ conda install --channel bioconda salmon
+~~~
+{: .language-bash}
+
+
+You can also install a package from a specific channel into a named environment (using `--name` or `-n`) or into an environment installed at a particular prefix (using `--prefix` or `-p`). For example, the following command installs the `salmon` package from the `bioconda` channel into the environment called `basic-rnaseq-env` which we created earlier.
+
+~~~
+$ conda install salmon --channel bioconda --name basic-rnaseq-env
+~~~
+{: .language-bash}
+
+This command would install `salmon` package from `bioconda` channel into an environment
+installed into the `env/` sub-directory.
+
+~~~
+$ conda install salmon --channel bioconda --prefix ./env
+~~~
+{: .language-bash}
+
+
+You may have noticed that we didn't manage to install the latest version fo salmon, why?
+The `bioconda` channel contains bioinformatics packages (salmon, STAR, samtools, DESeq2, etc.), however the channel `conda-forge`  has most of the dependencies (numpy, scipy, zlib, CRAN packages, etc.) needed. Therefore we need to specify multiple channels to install the latest version.
+
+## Specify multiple channels
+
+You may specify multiple channels for installing packages by passing the `--channel` argument
+multiple times.
+
+~~~
+$ conda install salmon=1.5 --channel conda-forge --channel bioconda --name basic-rnaseq-env
+~~~
+{: .language-bash}
+
+
+
 > ## Specifying channels when installing packages
 >
-> Like many projects, [PyTorch](https://pytorch.org/) has its own
-> [channel](https://anaconda.org/pytorch) on Anaconda Cloud. This channel has several interesting
-> packages, in particular `pytorch` (PyTorch core) and `torchvision` (datasets, transforms, and
-> models specific to computer vision).
->
-> Create a new directory called `my-computer-vision-project` and then create a Python 3.6
-> environment in a sub-directory called `env/` with the two packages listed above. Also include
-> the most recent version of `jupyterlab` in your environment (so you have a nice UI) and
-> `matplotlib` (so you can make plots).
+> Create a new directory called `rnaseq-project` and then create an
+> environment in a sub-directory called `env/` with the the packages salmon=1.5,
+> fastqc=0.11 and multiqc=1.10.
 >
 > > ## Solution
 > >
 > > In order to create a new environment you use the `conda create` command as follows.
 > >
 > > ~~~
-> > $ mkdir my-computer-vision-project
-> > $ cd my-computer-vision-project/
-> > $ conda create --prefix ./env --channel pytorch \
-> >  python=3.6 \
-> >  jupyterlab=1.0 \
-> >  pytorch=1.1 \
-> >  torchvision=0.3 \
-> >  matplotlib=3.1
+> > mkdir rnaseq-project
+> > cd rnaseq-project/
+> > conda create --prefix ./env --channel conda-forge \
+> >  --channel bioconda \
+> >  salmon=1.5 \
+> >  fastqc=0.11 \
+> >  multiqc=1.10
 > > ~~~
 > > {: .language-bash}
 > >
@@ -352,32 +298,138 @@ The [conda documentation][conda-install-docs] has a nice decision tree that desc
 > more explicitly links the channel being used to install a particular package.
 >
 > ~~~
-> $ conda install conda-forge::tensorflow  --prefix ./env
+> $ conda install biconda::multiqc  --prefix ./env
 > ~~~
 > {: .language-bash}
 >
-> Create a new folder `my-final-project` in `~/Desktop/introduction-to-conda-for-data-scientists` and repeat the previous exercise using this alternative syntax to install `python`, `jupyterlab`,
-> and `matplotlib` from the `conda-forge` channel and `pytorch` and `torchvision` from the
-> `pytorch` channel.
+> Install the lastest version of Nextflow using this alternative syntax
 >
 > > ## Solution
 > >
 > > One possibility would be to use the `conda create` command as follows.
 > >
 > > ~~~
-> > $ cd ~/Desktop/introduction-to-conda-for-data-scientists
-> > $ mkdir my-final-project
-> > $ cd my-final-project/
-> > $ conda create --prefix ./env \
-> >  conda-forge::python=3.6 \
-> >  conda-forge::jupyterlab=1.0 \
-> >  conda-forge::matplotlib=3.1 \
-> >  pytorch::pytorch=1.1 \
-> >  pytorch::torchvision=0.3
+> > $ conda install --prefix ./env -conda-forge bioconda::nextflow
 > > ~~~
 > > {: .language-bash}
 > {: .solution}
 {: .challenge}
+
+## Channel priority
+
+Different channels can have the same package, so conda must decide which channel to install the package from. Conda channels have a priority hierarchy.
+
+By default, conda prefers packages from a higher priority channel over any version from a lower priority channel.
+
+Conda collects all of the packages with the same name across all listed channels and processes them as follows:
+
+Sorts packages from highest to lowest channel priority.
+
+Sorts tied packages---packages with the same channel priority---from highest to lowest version number. For example, if channelA contains NumPy 1.12.0 and 1.13.1, NumPy 1.13.1 will be sorted higher.
+
+Sorts still-tied packages---packages with the same channel priority and same version---from highest to lowest build number. For example, if channelA contains both NumPy 1.12.0 build 1 and build 2, build 2 is sorted first. Any packages in channelB would be sorted below those in channelA.
+
+Installs the first package on the sorted list that satisfies the installation specifications.
+
+E.g. If you want to install `R` using the command below.
+
+~~~
+conda create --name rproject-env --channel defaults --channel conda-forge r-base
+~~~
+{: .language-bash}
+
+In the above example Channel priority decreases from left to right
+
+The first channel  `defaults` then it has higher priority than the second `conda-forge`. This is true even, if the version number of the package is higher in the second channel.  
+
+The bioconda team suggests that the `conda-forge` channel be a higher priority than the `bioconda` channel.
+
+
+## Adding channels to .condarc
+
+As mentioned above unless specified otherwise conda will only search the `default` channel.
+You can see this by typing the command below.
+~~~
+conda config --show channels
+~~~
+{: .language-bash}
+
+This will output.
+
+~~~
+channels:
+  - defaults
+~~~
+{: .output}
+
+If you don't want to specific the channel on the command line every time you can add a channel to your Conda configuration `~/.condarc` file using the following command.
+~~~
+conda config --add channels bioconda
+ ~~~
+{: .language-bash}
+
+~~~
+conda config --show channels
+~~~
+{: .language-bash}
+
+~~~
+channels:
+  - bioconda
+  - defaults
+~~~
+{: .output}
+
+
+To add another channel at the top of the priority list run.
+
+~~~
+conda config --add channels conda-forge
+ ~~~
+{: .language-bash}
+
+~~~
+conda config --show channels
+~~~
+{: .language-bash}
+
+~~~
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+~~~
+{: .output}
+
+If you use the `.condarc` to specify your channels then the priority order is from bottom to top.
+
+
+It is generally best to have conda-forge as the highest priority channel as this will usually have the most up-to-date packages.
+
+
+> ## Adding the channels to .condarc.
+>
+>  Add the bioconda and conda-forge channels to  your .condarc file.
+> Which channel has the highest priority?
+> > ## Solution
+> >
+> > To add the bioconda and conda-forge channel to  your .condarc file use the command.
+> >
+> > ~~~
+> > $ conda config --add channels bioconda
+> > $ conda config --add channels conda-forge
+> > ~~~
+> > {: .language-bash}
+> >
+> > The above sequence of commands will add the channels to your .condarc
+> > Use the command below to show the channel priority order.
+> > ~~~
+> > $ conda config --get channels
+> > ~~~
+> > {: .language-bash}
+> >
+> {: .solution}
+
 
 ## A Python package isn't available on any Conda channel! What should I do?
 
@@ -443,8 +495,7 @@ environment.
 
 > ## Installing packages into Conda environments using `pip`
 >
-> [deepTools](https://deeptools.readthedocs.io/en/develop/index.html)  is a suite of python tools particularly
->  developed for the efficient analysis of high-throughput sequencing data, such as ChIP-seq, RNA-seq or MNase-seq.
+> [pandas](https://pandas.pydata.org/)  pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation too
 >
 > Activate the `rnaseq-env` you created in a previous challenge and use `pip` to install
 > `combo`.
@@ -456,7 +507,7 @@ environment.
 > > ~~~
 > > $ conda install --name rnaseq-env pip
 > > $ conda activate rnaseq-env
-> > $ python -m pip install deeptools==2.*
+> > $ python -m pip install pandas
 > > ~~~
 > > {: .language-bash}
 > >

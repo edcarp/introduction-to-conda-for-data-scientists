@@ -94,9 +94,7 @@ It is a good idea to give your environment a meaningful name in order to help yo
 the purpose of the environment. While naming things can be difficult, `$PROJECT_NAME-env` is a
 good convention to follow. Sometimes also the specific version of a package why you had to create a new environment is a good name
 
-The command above will create a new Conda environment called "python3" and install the most recent
-version of Python. If you wish, you can specify a particular version of packages for `conda` to
-install when creating the environment.
+The command above will create a new Conda environment called "python3-env" and install the most recent version of Python. If you wish, you can specify a particular version of packages for `conda` to install when creating the environment.
 
 ~~~
 $ conda create --name python36-env python=3.6
@@ -130,29 +128,34 @@ You can create a Conda environment and install multiple packages by listing the 
 that you wish to install.
 
 ~~~
-$ conda create --name basic-rnaseq-env fastqc=0.11 salmon=1.4
+$ conda create --name basic-scipy-env ipython=7.13 matplotlib=3.1 numpy=1.18 scipy=1.4
 ~~~
 {: .language-bash}
 
 When `conda` installs a package into an environment it also installs any required dependencies.
 For example, even though Python is not listed as a packaged to install into the
-`basic-rnaseq-env` environment above, `conda` will still install Python into the environment
+`basic-scipy-env` environment above, `conda` will still install Python into the environment
 because it is a required dependency of at least one of the listed packages.
 
 > ## Creating a new environment
 >
-> Create a new environment called "rnaseq-env" with the most current versions
-> of [salmon](https://salmon.readthedocs.io/en/latest/salmon.html), [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/),
-> [multiqc](https://multiqc.info/).
+> Create a new environment called "machine-learning-env" with Python and the most current versions
+> of [IPython](https://ipython.org/), [Matplotlib](https://matplotlib.org/),
+> [Pandas](https://pandas.pydata.org/), [Numba](https://numba.pydata.org/) and
+> [Scikit-Learn](https://scikit-learn.org/stable/index.html).
 >
 > > ## Solution
 > >
 > > In order to create a new environment you use the `conda create` command as follows.
 > >
 > > ~~~
-> > $ conda create --name rnaseq-env \
-> >  salmon \
-> >  fastqc
+> > $ conda create --name machine-learning-env \
+> >  ipython \
+> >  matplotlib \
+> >  pandas \
+> >  python \
+> >  scikit-learn \
+> >  numba
 > > ~~~
 > > {: .language-bash}
 > >
@@ -161,9 +164,13 @@ because it is a required dependency of at least one of the listed packages.
 > > practice to always provide explicit version numbers, you should prefer the following solution.
 > >
 > > ~~~
-> > $ conda create --name rnaseq-env \
-> >  salmon=1.4 \
-> >  fastqc=0.11
+> > $ conda create --name machine-learning-env \
+> >  ipython=7.19 \
+> >  matplotlib=3.3 \
+> >  pandas=1.2 \
+> >  python=3.8 \
+> >  scikit-learn=0.23 \
+> >  numba=0.51
 > > ~~~
 > > {: .language-bash}
 > >
@@ -181,11 +188,11 @@ sometimes at all!). Activation of an environment does two things.
 2. Runs any activation scripts that the environment may contain.
 
 Step 2 is particularly important as activation scripts are how packages can set arbitrary
-environment variables that may be necessary for their operation. You activate the
-`basic-rnaseq-env` environment by name using the `activate` command.
+environment variables that may be necessary for their operation. Aou activate the
+`basic-scipy-env` environment by name using the `activate` command.
 
 ~~~
-$ conda activate basic-rnaseq-env
+$ conda activate basic-scipy-env
 ~~~
 {: .language-bash}
 
@@ -193,7 +200,7 @@ You can see that an environment has been activated because the shell prompt will
 name of the active environment.
 
 ~~~
-(basic-rnaseq-env) $
+(basic-scipy-env) $
 ~~~
 
 ## Deactivate the current environment
@@ -201,16 +208,13 @@ name of the active environment.
 To deactivate the currently active environment use the Conda `deactivate` command as follows.
 
 ~~~
-(basic-rnaseq-env) $ conda deactivate
+(basic-scipy-env) $ conda deactivate
 ~~~
 {: .language-bash}
 
 You can see that an environment has been deactivated because the shell prompt will no longer
 include the name of the previously active environment.
 
-~~~
-$
-~~~
 
 > ## Returning to the `base` environment
 >
@@ -222,7 +226,7 @@ $
 
 > ## Activate an existing environment by name
 >
-> Activate the `rnaseq-env` environment created in the previous challenge by name.
+> Activate the `machine-learning-env` environment created in the previous challenge by name.
 >
 > > ## Solution
 > >
@@ -230,7 +234,7 @@ $
 > > follows.
 > >
 > > ~~~
-> > $ conda activate rnaseq-env
+> > $ conda activate machine-learning-env
 > > ~~~
 > > {: .language-bash}
 > {: .solution}
@@ -238,7 +242,7 @@ $
 
 > ## Deactivate the active environment
 >
-> Deactivate the `rnaseq-env` environment that you activated in the previous challenge.
+> Deactivate the `machine-learning-env` environment that you activated in the previous challenge.
 >
 > > ## Solution
 > >
@@ -253,18 +257,16 @@ $
 
 ## Installing a package into an existing environment
 
-You can install a package into an existing environment using the `conda install` command. This
-command accepts a list of package specifications (i.e., `multiqc=1.10`, a python tool that creates quality control reports) and installs a set of
-packages consistent with those specifications *and* compatible with the underlying environment. If
-full compatibility cannot be assured, an error is reported and the environment is *not* changed.
+You can install a package into an existing environment using the `conda install` command. This command accepts a list of package specifications (i.e., `numpy=1.18`) and installs a set of packages consistent with those specifications *and* compatible with the underlying environment. If full compatibility cannot be assured, an error is reported and the environment is *not* changed.
 
 By default the `conda install` command will install packages into the current, active environment.
-The following would activate the `basic-rnaseq-env` we created above and install
-[Nextflow](https://www.nextflow.io), a workflow management system, into the active environment.
+The following would activate the `basic-scipy-env` we created above and install
+[Numba](https://numba.pydata.org/), an open source JIT compiler that translates a subset of Python
+and NumPy code into fast machine code, into the active environment.
 
 ~~~
-$ conda activate basic-rnaseq-env
-$ conda install multiqc=1.10
+$ conda activate basic-scipy-env
+$ conda install numba
 ~~~
 {: .language-bash}
 
@@ -273,10 +275,10 @@ numbers are not explicitly provided, Conda will attempt to install the newest ve
 requested packages. To accomplish this, Conda may need to update some packages that are already
 installed or install additional packages. It is always a good idea to explicitly provide version
 numbers when installing packages with the `conda install` command. For example, the following would
-install a particular version of [samtools](http://www.htslib.org/), into the current, active environment.
+install a particular version of Scikit-Learn, into the current, active environment.
 
 ~~~
-$ conda install multiqc=
+$ conda install scikit-learn=0.22
 ~~~
 {: .language-bash}
 
@@ -291,26 +293,27 @@ $ conda install multiqc=
 
 > ## Installing a package into a specific environment
 >
-> [Nextflow](https://https://www.nextflow.io//)
-> Nextflow is a workflow management system. Have a read through the
+> [Dask](https://dask.org/)
+> provides advanced parallelism for data science workflows enabling performance at scale for the
+> core Python data science tools such as Numpy Pandas, and Scikit-Learn. Have a read through the
 > [official documentation](https://docs.conda.io/projects/conda/en/latest/commands/install.html)
-> for the `conda install` command and see if you can figure out how to install nextflow into the
-> `rnaseq-env` that you created in the previous challenge.
+> for the `conda install` command and see if you can figure out how to install Dask into the
+> `machine-learning-env` that you created in the previous challenge.
 >
 > > ## Solution
 > >
-> > You can install Nextflow into `rnaseq-env` using the `conda install` command as follow.
+> > You can install Dask into `machine-learning-env` using the `conda install` command as follow.
 > > ~~~
-> > $ conda install --name rnaseq-env nextflow=20.10.0
+> > $ conda install --name machine-learning-env dask=2020.12
 > > ~~~
 > > {: .language-bash}
 > >
-> > You could also install nextflow into `rnaseq-env` by first activating that environment
+> > You could also install Dask into `machine-learning-env` by first activating that environment
 > > and then using the `conda install` command.
 > >
 > > ~~~
-> > $ conda activate rnaseq-env
-> > $ conda install nextflow=20.10.0
+> > $ conda activate machine-learning-env
+> > $ conda install dask=2020.12
 > > ~~~
 > > {: .language-bash}
 > {: .solution}
@@ -319,6 +322,13 @@ $ conda install multiqc=
 ## Where do Conda environments live?
 
 Environments created with `conda`, by default, live in the `envs/` folder of your `miniconda3` (or `anaconda3`) directory the absolute path to which will look something the following: `/Users/$USERNAME/miniconda3/envs` or `C:\Users\$USERNAME\Anaconda3`.
+
+You can see the location of your conda environments by running the command.
+
+~~~
+conda config --show envs_dirs
+~~~
+{: .language-bash}
 
 Running `ls` (linux) / `dir` (Windows) on your anaconda `envs/` directory will list out the directories containing the existing Conda environments.
 
@@ -340,11 +350,11 @@ Running `ls` (linux) / `dir` (Windows) on your anaconda `envs/` directory will l
 ## How do I specify a location for a Conda environment?
 
 You can control where a Conda environment lives by providing a path to a target directory when
-creating the environment. For example to following command will create  a new environment in a
+creating the environment. For example the following command will create  a new environment in a
 sub-directory of the current working directory called `env`.
 
 ~~~
-$ conda create --prefix ./env salmon=1.4 fastqc=0.11 multiqc=1.10
+$ conda create --prefix ./env ipython=7.13 matplotlib=3.1 pandas=1.0 python=3.6
 ~~~
 {: .language-bash}
 
@@ -397,29 +407,26 @@ your `~/miniconda3/env/` folder, you’ll have to give each of them a different 
 > {: .language-bash}
 >
 > Next, create a new environment inside the newly created `project-dir` in a sub-directory called
-> `env` an install Python 3.9, version 3.5 of [deeptools](https://deeptools.readthedocs.io/en/develop/).
+> `env` an install Python 3.6, version 3.1 of Matplotlib, and version 2.0 of
+> [TensorFlow](https://www.tensorflow.org/).
 >
 > > ## Solution
 > >
 > > ~~~
 > > project-dir $ conda create --prefix ./env \
-> > python=3.9 \
-> > deeptools=3.5
+> > python=3.6 \
+> > matplotlib=3.1 \
+> > tensorflow=2.0
 > > ~~~
 > > {: .language-bash}
 > >
 > {: .solution}
 {: .challenge}
 
-Placing Conda environments outside of the default `~/miniconda3/envs/` folder comes with a couple
-of minor drawbacks. First, `conda` can no longer find your environment with the `--name` flag;
-you’ll generally need to pass the `--prefix` flag along with the environment’s full path to
-find the environment.
+Placing Conda environments outside of the default `~/miniconda3/envs/` folder comes with a couple of minor drawbacks. First, `conda` can no longer find your environment with the `--name` flag; you’ll generally need to pass the `--prefix` flag along with the environment’s full path to find the environment.
 
 Second, an annoying side-effect of specifying an install path when creating your Conda
-environments is that your command prompt is now prefixed with the active environment’s absolute
-path rather than the environment's name. After activating an environment using its prefix your
-prompt will look similar to the following.
+environments is that your command prompt is now prefixed with the active environment’s absolute path rather than the environment's name. After activating an environment using its prefix your prompt will look similar to the following.
 
 ~~~
 (/absolute/path/to/env) $
@@ -479,22 +486,22 @@ For more on modifying your `.condarc` file, see the
 > First create a project directory called `r-project-dir` using the following command.
 >
 > ~~~
-> $ cd ~/Desktop/introduction-to-conda-for-data-scientists
-> $ mkdir r-project-dir
-> $ cd r-project-dir
+> cd /exports/eddie/scratch/$USER/conda_tutorial
+> mkdir r-project-dir
+> cd r-project-dir
 > ~~~
 > {: .language-bash}
 >
 > Next, take a look through the [list of R packages](https://anaconda.org/r/repo) available by
 > default for installation using `conda`. Create a new environment inside the newly created
-> `r-project-dir` in a sub-directory called `env` and install `r-base=4.0.3` and `bioconductor-deseq2=1.3`.
+> `r-project-dir` in a sub-directory called `env` and install `r-base`, `r-tidyverse`.
 >
 > > ## Solution
 > >
 > > ~~~
-> > project-dir $ conda create --prefix ./env \
-> > > r-base=4.0.3 \
-> > > r-bioconductor-deseq2=1.3
+> >  conda create --prefix ./env \
+> >  r-base \
+> >  r-tidyverse
 > > ~~~
 > > {: .language-bash}
 > >
@@ -517,10 +524,10 @@ $ conda env list
 In addition to forgetting names and locations of Conda environments, at some point you will
 probably forget exactly what has been installed in a particular Conda environment. Again, there is
 a `conda` command for listing the contents on an environment. To list the contents of the
-`basic-rnaseq-env` that you created above, run the following command.
+`basic-scipy-env` that you created above, run the following command.
 
 ~~~
-$ conda list --name basic-rnaseq-env
+$ conda list --name basic-scipy-env
 ~~~
 {: .language-bash}
 
@@ -535,15 +542,15 @@ $ conda list --prefix /path/to/conda-env
 
 > ## Listing the contents of a particular environment.
 >
-> List the packages installed in the `rnaseq-env` environment that you created in a
+> List the packages installed in the `machine-learning-env` environment that you created in a
 > previous challenge.
 >
 > > ## Solution
 > >
-> > You can list the packages and their versions installed in `rnaseq-env` using the
+> > You can list the packages and their versions installed in `machine-learning-env` using the
 > > `conda list` command as follows.
 > > ~~~
-> > $ conda list --name rnaseq-env
+> > $ conda list --name machine-learning-env
 > > ~~~
 > > {: .language-bash}
 > >
@@ -565,7 +572,7 @@ longer need an existing environment and just want to get rid of cruft on your ma
 the reason, the command to delete an environment is the following.
 
 ~~~
-$ conda remove --name my-first-conda-env --all
+$ conda remove --name python36-env --all
 ~~~
 {: .language-bash}
 
@@ -579,14 +586,14 @@ $ conda remove --prefix /path/to/conda-env/ --all
 
 > ## Delete an entire environment
 >
-> Delete the entire "basic-rnaseq-env" environment.
+> Delete the entire "machine-learning-env" environment.
 >
 > > ## Solution
 > >
 > > In order to delete an entire environment you use the `conda remove` command as follows.
 > >
 > > ~~~
-> > $ conda remove --name basic-rnaseq-env --all --yes
+> > $ conda remove --name machine-learning-env --all --yes
 > > ~~~
 > > {: .language-bash}
 > >
