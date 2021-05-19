@@ -41,7 +41,7 @@ For a more details of the conda package specification, including discussions of 
 metadata files, see the [docs][conda-pkg-spec-docs].
 
 As an example of Conda package structure consider the Conda package for
-salmon targeting a 64-bit Linux, `salmon-1.4.0-h84f40af_1.tar.bz2`.
+the RNA-Seq transcript quantification package salmon targeting a 64-bit Linux, `salmon-1.4.0-h84f40af_1.tar.bz2`.
 
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
 ├── bin
@@ -103,7 +103,7 @@ the current environment if none is specified). Installing the files of a conda p
 environment can be thought of as changing the directory to an environment, and then downloading
 and extracting the package and its dependencies.
 
-For example, when you `conda install` a package that exists in a known repository, channel, and has no dependencies,
+For example, when you `conda install` a package that exists in a known repository (channel), and has no dependencies,
 conda does the following.
 
 1. looks at your configured channels (in priority)
@@ -156,7 +156,7 @@ What does `packages are not available` from current channels: mean?
 
 ## What are Conda channels?
 
-When you `install` or `search` for a package in conda it search for it in a remote repositories called channels. These remote channel are URLs to directories containing conda packages. By default the `conda search` command searches a set of channels defined here.
+When you `install` or `search` for a package in conda it searches for it in remote repositories called channels. These remote channel are URLs to directories containing conda packages. By default the `conda search` command searches a set of channels defined here.
 [Anaconda Cloud channels](https://repo.anaconda.com/pkgs/).
 
 *   `main`: The majority of all new Anaconda, Inc. package builds are hosted here. Included in conda's defaults channel as the top priority channel.
@@ -172,12 +172,10 @@ As was the case with `salmon` it may very well be the case that packages (or oft
 
     https://anaconda.org
 
-and use the search bar at the top of the page. If we search for salmon we will se it is aviable via a channel called bioconda.
+and use the search bar at the top of the page. If we search for salmon we will se it is available via a channel called `bioconda`.
 
 
 ### bioconda
-
- The `bioconda` channel
 
 Bioconda is a channel, maintained by the [Bioconda project](https://bioconda.github.io)),   specialising in bioinformatics software. Bioconda contains 1000's of  bioinformatics packages ready to use with conda install.
 
@@ -187,9 +185,8 @@ Bioconda is a channel, maintained by the [Bioconda project](https://bioconda.git
 
 ### conda-forge
 
-The `conda-forge` channel
 
- In addition to the `default` channels that are managed by Anaconda Inc., there is another channel called `Conda-Forge` that also has a special status. The [Conda-Forge](https://github.com/conda-forge) project "is a community led collection of recipes, build infrastructure and distributions for the conda package manager."
+In addition to the `default` channels that are managed by Anaconda Inc., there is another channel called `Conda-Forge` that also has a special status. The [Conda-Forge](https://github.com/conda-forge) project "is a community led collection of recipes, build infrastructure and distributions for the conda package manager."
 
  There are a number of reasons that you may wish to use the `conda-forge` channel instead of the `defaults` channel maintained by Anaconda:
 
@@ -255,7 +252,7 @@ The `bioconda` channel contains bioinformatics packages (salmon, STAR, samtools,
 
 ## Specify multiple channels
 
-You may specify multiple channels for installing packages by passing the `--channel` argument
+To specify multiple channels for installing packages by passing the `--channel` argument
 multiple times.
 
 ~~~
@@ -263,6 +260,11 @@ $ conda install salmon=1.5 --channel conda-forge --channel bioconda --name basic
 ~~~
 {: .language-bash}
 
+This also works when install multiple packages.
+
+~~~
+$ conda install fastqc=0.11 multiqc=1.10 --channel conda-forge --channel bioconda --name basic-rnaseq-env
+~~~
 
 
 > ## Specifying channels when installing packages
@@ -409,7 +411,7 @@ It is generally best to have conda-forge as the highest priority channel as this
 
 > ## Adding the channels to .condarc.
 >
->  Add the bioconda and conda-forge channels to  your .condarc file.
+> Add the bioconda and conda-forge channels to  your .condarc file.
 > Which channel has the highest priority?
 > > ## Solution
 > >
