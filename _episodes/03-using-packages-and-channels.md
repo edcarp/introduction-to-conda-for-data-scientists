@@ -15,8 +15,7 @@ objectives:
 keypoints:
 - "A package is a tarball containing system-level libraries, Python or other modules, executable programs and other components, and associated metadata."
 - "A Conda channel is a URL to a directory containing a Conda package(s)."
-- "Explicitly including the channels (and their priority!) in a project's environment file is necessary for another researcher to completely re-create that project's software environment."
-- "Understand how to use Conda and Pip together effectively."
+
 ---
 
 ## What are Conda packages?
@@ -88,7 +87,7 @@ the RNA-Seq transcript quantification package salmon targeting a 64-bit Linux, `
 
 
 > ## Conda packages cache directory (pkgs_dirs)
-> When you first install a package, conda will download the tar.bz2 packages into the package cache directory defined by the conda variable pkgs_dirs. Before conda install a package it will look in the package directory .
+> When you first install a package, conda will download the tar.bz2 packages into the package cache directory. Before conda install a package it will look in the package directory .
 > By default this will be placed under ~/.conda/pkgs.  
 > For Anaconda 5.0.1 and newer, you can also configure your pkgs directory location by using the following command:
 > ~~~
@@ -122,7 +121,7 @@ The [conda documentation][conda-install-docs] has a nice decision tree that desc
 Let's create a new environment `basic-rnaseq-env` and install a transcript quantification package, [salmon](https://salmon.readthedocs.io/en/latest/salmon.html) , for an RNA-Seq analysis project.
 
 ~~~
-conda create --name basic-rnaseq-env salmon
+$conda create --name basic-rnaseq-env salmon
 ~~~
 {: .language-bash}
 
@@ -177,7 +176,7 @@ and use the search bar at the top of the page. If we search for salmon we will s
 
 ### bioconda
 
-Bioconda is a channel, maintained by the [Bioconda project](https://bioconda.github.io)),   specialising in bioinformatics software. Bioconda contains 1000's of  bioinformatics packages ready to use with conda install.
+Bioconda is a channel, maintained by the [Bioconda project](https://bioconda.github.io)), specialising in bioinformatics software. Bioconda contains 1000's of  bioinformatics packages ready to use with conda install.
 
 > R and Bioconductor packages
 > Most R packages on CRAN should be submitted at Conda-Forge. However, if the CRAN  package has a Bioconductor, a repository for bioinformatics R packages,  dependency, it belongs in Bioconda. If the CRAN package does not have a Bioconductor package dependency, it belongs in Conda-Forge.
@@ -200,7 +199,7 @@ If you know the channel your package is likely to be located on, you can can use
 command with the `--channel ` option and the name of the channel. E.g.
 
 ~~~
-conda search --channel bioconda salmon
+$ conda search --channel bioconda salmon
 ~~~
 {: .language-bash}
 
@@ -333,16 +332,14 @@ Sorts still-tied packages---packages with the same channel priority and same ver
 
 Installs the first package on the sorted list that satisfies the installation specifications.
 
-E.g. If you want to install `R` using the command below.
+Channel priority listed on the command decreases from left to right. Sp if you where to install base R `r-base` using the command below.
 
 ~~~
 conda create --name rproject-env --channel defaults --channel conda-forge r-base
 ~~~
 {: .language-bash}
 
-In the above example Channel priority decreases from left to right
-
-The first channel  `defaults` then it has higher priority than the second `conda-forge`. This is true even, if the version number of the package is higher in the second channel.  
+The first channel  `defaults` would have a higher priority than the second `conda-forge`. This is true even, if the version number of the package is higher in the second channel.  
 
 The bioconda team suggests that the `conda-forge` channel be a higher priority than the `bioconda` channel.
 
@@ -404,7 +401,6 @@ channels:
 {: .output}
 
 If you use the `.condarc` to specify your channels then the priority order is from bottom to top.
-
 
 It is generally best to have conda-forge as the highest priority channel as this will usually have the most up-to-date packages.
 
