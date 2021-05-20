@@ -291,6 +291,20 @@ $ conda install scikit-learn=0.22
 > installed.
 {: .callout}
 
+
+## Remove a package from an environment
+
+To remove a package from an environment you can run the command.
+
+~~~
+$ conda uninstall PKGNAME --name ENVNAME
+~~~
+
+For example to remove the scikit-learn package from the basic-scipy-env environment run
+~~~
+$conda uninstall scikit-learn -n basic-scipy-env
+~~~
+
 > ## Installing a package into a specific environment
 >
 > [Dask](https://dask.org/)
@@ -357,6 +371,10 @@ sub-directory of the current working directory called `env`.
 $ conda create --prefix ./env ipython=7.13 matplotlib=3.1 pandas=1.0 python=3.6
 ~~~
 {: .language-bash}
+
+> ## dot-slash, ./
+> In unix the dot-slash, ./, is a relative path a file or directory in the current directory.
+{: .callout}
 
 You activate an environment created with a prefix using the same command used to activate
 environments created by name.
