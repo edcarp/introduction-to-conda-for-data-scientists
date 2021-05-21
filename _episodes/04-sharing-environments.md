@@ -23,8 +23,7 @@ Conda environments are useful when making bioinformatics projects reproducible. 
 
 ### Creating an environment file
 
-Conda uses YAML ("YAML Ain't Markup Language") for writing its environment files. [YAML](https://docs.ansible.com/YAMLSyntax.html) is a human-readable data-serialization language that is commonly used for configuration files and that
- that uses Python-style indentation to indicate nesting.
+Conda uses YAML ("YAML Ain't Markup Language") for writing its environment files. [YAML](https://docs.ansible.com/YAMLSyntax.html) is a human-readable data-serialization language that is commonly used for configuration files and that that uses Python-style indentation to indicate nesting.
 
 Creating your project's Conda environment from a single environment file is a Conda "best practice". Not only do you have a file to share with collaborators but you also have a file that can be placed under version control which further enhancing the reproducibility of your research project and workflow.
 
@@ -51,8 +50,7 @@ dependencies:
 ~~~
 {: .language-yaml}
 
-The first line specifies a default name `rnaseq-env` for the environment, however this can be overidden on the command line. The second line specifies a list of channels that packages may need to be installed from. Finally the dependencies lists the most current and mutually compatible versions of the listed packages (including all required
-dependencies) to download.
+The first line specifies a default name `rnaseq-env` for the environment, however this can be overidden on the command line. The second line specifies a list of channels, listed in priority order, that packages may need to be installed from. Finally the dependencies lists the most current and mutually compatible versions of the listed packages (including all required dependencies) to download.
 
 The newly created environment would be installed inside the conda environment directory e.g. `~/miniconda3/envs/` directory, unless we specified a different path using `conda create` command line option `--prefix` or `-p`.
 
@@ -85,8 +83,8 @@ Note that we are only specifying the major and minor version numbers and not the
 Let's suppose that you want to use the `environment.yml` file defined above to create a Conda environment in a sub-directory a project directory. Here is how you would accomplish this task.
 
 ~~~
-$ mkdir rnaseq-project2
-$ cd rnaseq-project2
+$ mkdir project2
+$ cd project2
 ~~~
 
 Once your project folder is created, create an `environment.yml` file using your favourite editor for instance `nano`.
@@ -111,7 +109,7 @@ $ conda activate ./env
 ~~~
 {: .language-bash}
 
-Note that the above sequence of commands assumes that the `environment.yml` file is stored within your `rnaseq-project2` directory.
+Note that the above sequence of commands assumes that the `environment.yml` file is stored within your `project2` directory.
 
 ## Automatically generate an `environment.yml`
 
