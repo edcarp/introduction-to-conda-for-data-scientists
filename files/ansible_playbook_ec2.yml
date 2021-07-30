@@ -1,0 +1,54 @@
+# This playbook prepares images for the Nextflow Ed-DASH course. For EdGe EC2 images,
+# just start any number of regular training VMs, and check they exist with:
+#
+#  $ ansible-inventory --graph --verbose
+#
+# If other VMs are running then you'll need to do something smarter.
+#
+- hosts: dash
+  become: no
+  become_user: training
+  tasks:
+
+    - name: Set alternative password for VNC
+      when: false
+      vars:
+        passwd: "ed-dash-1307"
+      become_user: training
+      shell:
+        executable: /bin/bash
+        chdir: ~/.vnc
+        cmd: |
+             set -euo pipefail
+             mv passwd passwd.old
+             echo '{{ passwd }}' | /opt/tigervnc/usr/bin/vncpasswd -f > passwd
+             chmod 0600 passwd
+      args:
+        creates: ~/.vnc/passwd.old
+
+
+
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: ~/Downloads
+        state: directory
+        mode: '0755'
+
+    - name: Fetch Miniconda Installer
+      get_url:
+        url: https://repo.anaconda.com/miniconda/Miniconda3-py39_4.9.2-Linux-x86_64.sh
+        dest: ~/Downloads/miniconda3_installer.sh
+        mode: '0644'
+        checksum: sha256:536817d1b14cb1ada88900f5be51ce0a5e042bae178b5550e62f61e223deae7c
+
+    - name: Run Miniconda Installer
+      shell:
+        executable: /bin/bash
+        chdir: ~/
+        cmd: |
+             set -euo pipefail
+             rm -rf ~/.conda ~/miniconda3
+             bash ~/Downloads/miniconda3_installer.sh -b
+             source ~/miniconda3/bin/activate
+             conda init
+        creates: ~/.conda/environments.txt
