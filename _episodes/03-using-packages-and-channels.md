@@ -176,7 +176,7 @@ and use the search bar at the top of the page. If we search for salmon we will s
 
 ### bioconda
 
-Bioconda is a channel, maintained by the [Bioconda project](https://bioconda.github.io)), specialising in bioinformatics software. Bioconda contains 1000's of  bioinformatics packages ready to use with conda install.
+Bioconda is a channel, maintained by the [Bioconda project](https://bioconda.github.io), specialising in bioinformatics software. Bioconda contains 1000's of  bioinformatics packages ready to use with conda install.
 
 > R and Bioconductor packages
 > Most R packages on CRAN should be submitted at Conda-Forge. However, if the CRAN  package has a Bioconductor, a repository for bioinformatics R packages,  dependency, it belongs in Bioconda. If the CRAN package does not have a Bioconductor package dependency, it belongs in Conda-Forge.
@@ -303,7 +303,7 @@ $ conda install fastqc=0.11 multiqc=1.10 --channel conda-forge --channel biocond
 > ~~~
 > {: .language-bash}
 >
-> Install the lastest version of Nextflow using this alternative syntax
+> Install the latest version of the workflow manager nextflow using this alternative syntax
 >
 > > ## Solution
 > >
