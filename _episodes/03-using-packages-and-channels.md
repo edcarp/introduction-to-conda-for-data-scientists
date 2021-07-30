@@ -15,6 +15,8 @@ objectives:
 keypoints:
 - "A package is a tarball containing system-level libraries, Python or other modules, executable programs and other components, and associated metadata."
 - "A Conda channel is a URL to a directory containing a Conda package(s)."
+- "You can specific a conda channel using the option `--channel` or add it to your `.condarc`"
+- "If a python package isn't available on a conda channel you can install it into your environment using the python package installer `pip`. "
 
 ---
 
