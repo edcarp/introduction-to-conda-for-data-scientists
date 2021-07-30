@@ -504,7 +504,7 @@ For more on modifying your `.condarc` file, see the
 > First create a project directory called `r-project-dir` using the following command.
 >
 > ~~~
-> cd /exports/eddie/scratch/$USER/conda_tutorial
+> cd ~/
 > mkdir r-project-dir
 > cd r-project-dir
 > ~~~
