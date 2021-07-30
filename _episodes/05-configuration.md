@@ -1,78 +1,103 @@
 ---
 title: "Configuring conda"
-teaching: 30
-exercises: 0
+teaching: 20
+exercises: 5
 questions:
 - "How do I configure conda ?"
+- "How can I see conda's configuration values?""
+- "How can I modify conda's configure settings?"
 
 objectives:
-- "modify the .condarc file."
+- "Use the conda `config --show` to display all configuration values and `config --describe` to describe agiven configuration parameters."
+- "Modify the .condarc file using the `conda config` sub command."
+- "locate the .condarc" file."
 
 keypoints:
-- "The .condarc is an optional runtime configuration file that allows users to configure various aspects of conda"
-- "You can use the `conda config` subcommand to modify configuration options."
-
-
+- "The `.condarc` is an optional runtime configuration file that stores custom conda setting.
+- "You can use the `conda config` subcommand to add, set or remove configuration setting in the `.condarc` file. You can also  edit the `.condarc` directly using a text editor."
 ---
 
 ## Configuration
 
 Conda has a number of configuration setting which control how it performs.
 To display and control these setting we can use the `config config` subcommand.
-To display all configuration values:
+
+To display all configuration settings run the `config --show` subcommand :
 
 ~~~
-conda config --show
-~~~
-{: .language-bash}
-
-Conda supports a wide range of configuration options. This episode gives examples of frequently used options and their usage. For a complete list of all available options for your version of conda, use the `conda config --describe` command.
-
-~~~
-$conda config --describe
+$ conda config --show
 ~~~
 {: .language-bash}
 
+As you can see Conda supports a large number of configuration options to show a single setting add the setting name after the `conda config --show` command.
+
+~~~
+$ conda config --show channels
+~~~
+{: .language-bash}
+
+~~~
+channels:
+  - defaults
+~~~
+{: .output}
+
+To get more information about an individual setting run `conda config --describe <option>`. For Example;
+
+~~~
+conda config --describe channels
+~~~
+{: .language-bash}
+
+~~~
+# # channels (sequence: primitive)
+# #   aliases: channel
+# #   env var string delimiter: ','
+# #   The list of conda channels to include for relevant operations.
+# #
+# channels:
+#   - defaults
+~~~
+{: .output}
 
 ## .condarc
 
+A user's conda setting are store in the runtime configuration configuration file, `.condarc`. The file  allows  users to configure various aspects of conda  including:
 
-The conda configuration file, `.condarc`, is an optional runtime configuration file that allows  users to configure various aspects of conda, such as which channels it searches for packages and environment directories.
+* Where conda looks for packages `channels`.
 
+* Where conda lists known environments `envs_dirs`.
 
-The .condarc file can change many parameters, including:
+* Whether to update the Bash prompt with the currently activated environment name `env_prompt`.
 
-* Where conda looks for packages.
+* What default packages or features to include in new environments `create_default_packages`.
 
-* Where conda lists known environments.
-
-* Whether to update the Bash prompt with the currently activated environment name.
-
-* What default packages or features to include in new environments.
-
-The .condarc configuration file follows simple YAML syntax
-
+Like the environment file the `.condarc` configuration file follows a simple YAML syntax
 
 The `.condarc file` is not included by default, but it is automatically created in your home directory the first time you run the `conda config` command.
 
 
 ## Creating or modify .condarc
 
-To create or modify a `.condarc file`, open  enter the `conda config` command and use the options  `--add`, `--set`, `--append` , `--prepend` or `--remove` .
+To create or modify a `.condarc file`,  enter the `conda config` command and use the modifier options  `--add`, `--set`, `--append` , `--prepend` or `--remove` followed by the configuration key and a value .
 
 ~~~
 conda config <modifier> <KEY> <VALUE>
 ~~~
 {: .language-bash}
 
-For example to add the `conda-forge` channel to the configuration file at the end of a list.
+### Adding a configuration value
+
+To add the `conda-forge` to the list of `channels` we can use the `--add`, `--append` or `--prepend` modifier option:
+
+For example, if we want to add a channel to our list of `channels` in our configuration file rather than specific it on the command line every time we can can use the `--append` option modifier.
 
 ~~~
-$conda config --add channels conda-forge
+$conda config --append channels conda-forge
 ~~~
 {: .language-bash}
 
-To add conda-forge to the beginning of a list run.
+To add `conda-forge` to the beginning of the channel list, giving it the highest priority use the `--preprend` modifier options.
 
 ~~~
 $conda config --prepend channels conda-forge
@@ -80,72 +105,103 @@ $conda config --prepend channels conda-forge
 {: .language-bash}
 
 
-Alternatively, you can open a text editor such as Notepad on Windows, TextEdit on macOS, or VS Code. Name the new file `.condarc` and save it to your user home directory or root directory.
-
-To edit the `.condarc` file, open it from your home or root directory and make edits in the same way you would with any other text file. If the .condarc file is in the root environment, it will override any in the home directory.
-
-You can find information about your `.condarc` file by typing `conda info` in your terminal or Anaconda Prompt. This will give you information about your .condarc file, including where it is located.
-
-~~~
-conda info
-~~~
-{: .language-bash}
-
-To set configuration options, edit the .condarc file directly or use the `conda config --set` command.
-
-EXAMPLE: To set the env_prompt option run:
-
-~~~
-conda config --describe env_prompt
-~~~
-
-To see the options.
-
-{: .language-bash}
-
-~~~
-conda config --set env_prompt '({name})'
-~~~
-{: .language-bash}
-
-For a complete list of conda config commands, see the [command reference](https://conda.io/projects/conda/en/latest/commands/config.html). The same list is available at the terminal or Anaconda Prompt by running `conda config --help`. You can also see the conda channel configuration for more information.
+**Note:** It is generally best to have `conda-forge` as the highest priority channel as this will usually have the most up-to-date packages.
 
 
-## General configuration
+> ## Adding the channels bioconda and conda-forge to .condarc.
+>
+> Add the bioconda and conda-forge channels to  your .condarc file.
+> Which channel has the highest priority?
+> > ## Solution
+> >
+> > To add the bioconda and conda-forge channel to  your .condarc file use the command.
+> >
+> > ~~~
+> > $ conda config --prepend channels bioconda
+> > $ conda config --prepend channels conda-forge
+> > ~~~
+> > {: .language-bash}
+> >
+> > The above sequence of commands will add the channels to your .condarc
+> > Use the command below to show the channel priority order.
+> > ~~~
+> > $ conda config --get channels
+> > ~~~
+> > {: .language-bash}
+> >
+> {: .solution}
 
-### Channel locations (channels)
 
-Listing channel locations in the .condarc file overrides conda defaults, causing conda to search only the channels listed here, in the order given.
 
-Use defaults to automatically include all default channels. Non-URL channels are interpreted as Anaconda.org user names.
+## Setting configuration settings
+
+If our configuration setting has a  single value we can use `conda config --set` to set it.
+
+For example: In a previous episode we set the command line prompt setting,  `env_prompt`.
 
 ~~~
-conda config --show channels
+$ conda config --describe env_prompt
 ~~~
 {: .language-bash}
 
-### Specify environment directories (envs_dirs)
-
-Specify directories in which named environments are located. If the envs_dirs key is set, the root prefix envs_dir is not used unless explicitly included.
-
-To list environment directories run `conda config --show envs_dirs`.
+The `env_prompt` setting takes a value of either `'{prefix}'`, `'{name}'`, and
+`'{default_env}'`.
 
 ~~~
-conda config --show envs_dirs
+# # env_prompt (str)
+# #   Template for prompt modification based on the active environment.
+# #   Currently supported template variables are '{prefix}', '{name}', and
+# #   '{default_env}'. '{prefix}' is the absolute path to the active
+# #   environment. '{name}' is the basename of the active environment
+# #   prefix. '{default_env}' holds the value of '{name}' if the active
+# #   environment is a conda named environment ('-n' flag), or otherwise
+# #   holds the value of '{prefix}'. Templating uses python's str.format()
+# #   method.
+# #
+# env_prompt: '({default_env}) '
+~~~
+{: .output}
+
+To set the `env_prompt` to the value `'({default_env})'` run:
+
+~~~
+$ conda config --set env_prompt '({default_env})'
 ~~~
 {: .language-bash}
 
-Conda will write environments to the first writable directory in the list.
-
-### Specify package directories (pkgs_dirs)
-
-Specify directories in which packages are located. If the `pkgs_dirs` key is set, the root prefix, CONDA_ROOT is the path for your base conda install , is not used unless explicitly included.
-
-If the `pkgs_dirs key` is not set, then envs/pkgs is used as the pkgs cache, except for the standard envs directory in the root directory, for which the normal root_dir/pkgs is used.
+To change it back to the environment name.
 
 ~~~
-conda config --show pkgs_dirs
+$ conda config --set env_prompt '({name})'
 ~~~
 {: .language-bash}
+
+**Note:**: You need to deactivate then reactivate the environment for the changes in env prompt to take effect.
+
+## Editing the `.condarc` file manually.
+
+You can also use a text editor such as nano to directly edit the `.condarc`.
+
+To show the location and contents of your `.condarc` file you can use the `conda config --show-sources` command.
+
+~~~
+$ conda config --show-sources
+~~~
+{: .language-bash}
+
+**Note:** If the .condarc file is in the root environment, it will override any in the home directory.
+
+## Getting help
+
+As with all conda commands you can use the `--help option`.
+
+For example,  for a complete list of `conda config` commands run
+
+~~~
+$ conda config --help
+~~~
+{: .language-bash}
+
+Or see the [command reference](https://conda.io/projects/conda/en/latest/commands/config.html).
 
 {% include links.md %}
