@@ -51,4 +51,5 @@
              bash ~/Downloads/miniconda3_installer.sh -b
              source ~/miniconda3/bin/activate
              conda init
+             conda update conda -y
         creates: ~/.conda/environments.txt
