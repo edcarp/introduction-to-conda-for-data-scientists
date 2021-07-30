@@ -23,7 +23,7 @@ Conda environments are useful when making bioinformatics projects reproducible. 
 
 ### Creating an environment file
 
-Conda uses YAML ("YAML Ain't Markup Language") for writing its environment files. [YAML](https://docs.ansible.com/YAMLSyntax.html) is a human-readable data-serialization language that is commonly used for configuration files and that that uses Python-style indentation to indicate nesting.
+Conda uses YAML ("YAML Ain't Markup Language") for writing its environment files. [YAML](https://docs.ansible.com/YAMLSyntax.html) is a human-readable language that is commonly used for configuration files and that that uses Python-style indentation to indicate nesting.
 
 Creating your project's Conda environment from a single environment file is a Conda "best practice". Not only do you have a file to share with collaborators but you also have a file that can be placed under version control which further enhancing the reproducibility of your research project and workflow.
 
@@ -83,8 +83,9 @@ Note that we are only specifying the major and minor version numbers and not the
 Let's suppose that you want to use the `environment.yml` file defined above to create a Conda environment in a sub-directory a project directory. Here is how you would accomplish this task.
 
 ~~~
-$ mkdir project2
-$ cd project2
+$ cd ~/
+$ mkdir rnaseq-project-2
+$ cd rnaseq-project-2
 ~~~
 
 Once your project folder is created, create an `environment.yml` file using your favourite editor for instance `nano`.
@@ -109,7 +110,7 @@ $ conda activate ./env
 ~~~
 {: .language-bash}
 
-Note that the above sequence of commands assumes that the `environment.yml` file is stored within your `project2` directory.
+Note that the above sequence of commands assumes that the `environment.yml` file is stored within your ` rnaseq-project-2` directory.
 
 ## Automatically generate an `environment.yml`
 
@@ -122,7 +123,7 @@ $ conda env export --name basic-rnaseq-env
 
 When you run this command, you will see the resulting YAML formatted representation of your Conda environment streamed to the terminal. Recall that we only listed three packages when we originally created `basic-rnaseq-env` yet from the output of the `conda env export` command we see that these  packages result in an environment with a large number of dependencies!
 
-To export this list into an environment.yml file, you can use `--file` option to directly save the resulting YAML environment into a file.
+To export this list into an `environment.yml` file, you can use `--file` option to directly save the resulting YAML environment into a file.
 
 ~~~
 $ conda env export --name basic-rnaseq-env --file environment.yml
@@ -144,11 +145,11 @@ In short: to make sure others can reproduce your environment independent of the 
 
 > ## Create a new environment from a YAML file.
 >
-> Create a new project directory rnaseq-project2 and then create a new `environment.yml` file inside your project
+> Create a new project directory rnaseq-project-3 and then create a new `environment.yml` file inside your project
 > directory with the following contents.
 >
 > ~~~
-> name: rnaseq_project2-env
+> name: rnaseq-project3-env
 > channels:
 >   - conda-forge
 >   - bioconda
@@ -168,8 +169,8 @@ In short: to make sure others can reproduce your environment independent of the 
 > > To create a new environment from a YAML file use the `conda env create` sub-command as follows.
 > >
 > > ~~~
-> > $ mkdir rnaseq-project2
-> > $ cd rnaseq-project2
+> > $ mkdir rnaseq-project-3
+> > $ cd rnaseq-project-3
 > > $ nano environment.yml
 > > $ conda env create --file environment.yml
 > > ~~~
@@ -201,6 +202,8 @@ You are unlikely to know ahead of time which packages (and version numbers!) you
 If any of these occurs during the course of your research project, all you need to do is update the contents of your `environment.yml` file accordingly and then run the following command.
 
 ~~~
+$ cd
+$ cd rnaseq-project-2
 $ conda env update --prefix ./env --file environment.yml  --prune
 ~~~
 {: .language-bash}
@@ -222,7 +225,7 @@ Note that the `--prune` option tells Conda to remove any installed packages not 
 
 > ## Update environment from environment.yml
 >
-> Update the environment file from the previous exercise by adding the package [kallisto=0.46](kallisto://pachterlab.github.io/kallisto/) and removing the salmon package. Then rebuild the environment.
+> Update the environment file from the previous exercise, rnaseq-project-3, by adding the package [kallisto=0.46](kallisto://pachterlab.github.io/kallisto/) and removing the salmon package. Then rebuild the environment.
 >
 > > ## Solution
 > >
@@ -243,6 +246,7 @@ Note that the `--prune` option tells Conda to remove any installed packages not 
 > > new dependencies:
 > >
 > > ~~~
+> > $ cd ~/-project-3
 > > $ conda env create --prefix ./env --file environment.yml --force
 > > ~~~
 > > {: .language-bash}
@@ -261,8 +265,8 @@ Note that the `--prune` option tells Conda to remove any installed packages not 
 Conda keeps a history of all the changes made to your environment, so you can easily "roll back" to a previous version. To list the history of each change to the current environment: `
 
 ~~~
-$conda activate basic-rnaseq-env
-$conda list --revisions
+$ conda activate basic-rnaseq-env
+$ conda list --revisions
 ~~~
 {: .language-bash}
 
@@ -276,8 +280,24 @@ $conda install --revision=REVNUM or conda install --rev REVNUM.
 For example,
 
 ~~~
-$conda install --revision=0
+$ conda install --revision=0
 ~~~
 {: .language-bash}
+
+> ## List revisions.
+>
+> Activate the environment inside the `rnaseq-project-3` and list the revisions
+> > ## Solution
+> >
+> > To create a new environment from a YAML file use the `conda env create` sub-command as follows.
+> >
+> > ~~~
+> > $ cd ~/
+> > $ cd rnaseq-project-3
+> > $ conda activate ./env
+> > $ conda list --revisions
+> > ~~~
+> {: .solution}
+{: .challenge}
 
 {% include links.md %}
