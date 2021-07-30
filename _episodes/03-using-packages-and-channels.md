@@ -310,7 +310,7 @@ $ conda install fastqc=0.11 multiqc=1.10 --channel conda-forge --channel biocond
 > > One possibility would be to use the `conda create` command as follows.
 > >
 > > ~~~
-> > $ conda install --prefix ./env -conda-forge bioconda::nextflow
+> > $ conda install --prefix ./env --channel conda-forge bioconda::nextflow
 > > ~~~
 > > {: .language-bash}
 > {: .solution}
@@ -324,24 +324,24 @@ By default, conda prefers packages from a higher priority channel over any versi
 
 Conda collects all of the packages with the same name across all listed channels and processes them as follows:
 
-Sorts packages from highest to lowest channel priority.
+1. Sorts packages from highest to lowest channel priority.
 
-Sorts tied packages---packages with the same channel priority---from highest to lowest version number. For example, if channelA contains NumPy 1.12.0 and 1.13.1, NumPy 1.13.1 will be sorted higher.
+1. Sorts tied packages---packages with the same channel priority---from highest to lowest version number. For example, if channelA contains NumPy 1.12.0 and 1.13.1, NumPy 1.13.1 will be sorted higher.
 
-Sorts still-tied packages---packages with the same channel priority and same version---from highest to lowest build number. For example, if channelA contains both NumPy 1.12.0 build 1 and build 2, build 2 is sorted first. Any packages in channelB would be sorted below those in channelA.
+1. Sorts still-tied packages, packages with the same channel priority and same version, from highest to lowest build number. For example, if channelA contains both NumPy 1.12.0 build 1 and build 2, build 2 is sorted first. Any packages in channelB would be sorted below those in channelA.
 
-Installs the first package on the sorted list that satisfies the installation specifications.
+1. Installs the first package on the sorted list that satisfies the installation specifications.
 
-Channel priority listed on the command decreases from left to right. Sp if you where to install base R `r-base` using the command below.
+**Note:** Channel priority listed on the command decreases from left to right. So if you were to install base R `r-base` using the command below.
 
 ~~~
-conda create --name rproject-env --channel defaults --channel conda-forge r-base
+$ conda create --name rproject-env --channel defaults --channel conda-forge r-base
 ~~~
 {: .language-bash}
 
 The first channel  `defaults` would have a higher priority than the second `conda-forge`. This is true even, if the version number of the package is higher in the second channel.  
 
-The bioconda team suggests that the `conda-forge` channel be a higher priority than the `bioconda` channel.
+**Note:** The bioconda team suggests that the `conda-forge` channel be a higher priority than the `bioconda` channel.
 
 
 ## Adding channels to .condarc
