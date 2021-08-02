@@ -181,6 +181,22 @@ $ conda config --set env_prompt '({name})'
 
 **Note:**: You need to deactivate then reactivate the environment for the changes in env prompt to take effect.
 
+> ## Set conda `channel_priority`
+> Use the `conda config --describe` to investigate the setting `channel_priority`.
+> Set the channel_priority  so that packages in lower priority channels are not considered if a package with the same name appears in a higher priority channel.
+> Why would you want to do change this setting?
+> > ## Solution
+> > ~~~
+> > $ conda config --describe channel_priority
+> > $ conda config --set channel_priority strict
+> > $ conda config --show channel_priority
+> > ~~~
+> > {: .language-bash}
+> > Using Strict channel priority can dramatically speed up conda operations and also reduce package incompatibility problems. This will be the default as of conda 5.0.
+> {: .solution}
+
+
+
 ## Editing the `.condarc` file manually.
 
 You can also use a text editor such as nano to directly edit the `.condarc`.
@@ -192,7 +208,16 @@ $ conda config --show-sources
 ~~~
 {: .language-bash}
 
-**Note:** If the .condarc file is in the root environment, it will override any in the home directory.
+**Note:** If the .condarc file is in the root environment, it will override any in the home directory
+
+> ## Open `.condarc` with text editor
+> Using your favourite text editor look at the `.condarc`.
+> > ## Solution
+> > ~~~
+> > $ nano ~/.condarc
+> > ~~~
+> > {: .language-bash}
+> {: .solution}
 
 ## Getting help
 
