@@ -8,11 +8,11 @@ questions:
 - "How can I see conda's configuration values?"
 - "How can I modify conda's configure settings?"
 objectives:
-- "Use the conda `config --show` to display all configuration values and `config --describe` to describe agiven configuration parameters."
+- "Use the conda `config --show` to display all configuration values and `config --describe` to describe the function of a given configuration parameters."
 - "Modify the `.condarc` file using the `conda config` sub command."
 - "locate the `.condarc` file."
 keypoints:
-- "The `.condarc` is an optional runtime configuration file that stores custom conda setting."
+- "The `.condarc` is an optional configuration file that stores custom conda setting."
 - "You can use the `conda config` subcommand to add, set or remove configuration setting in the `.condarc` file. You can also  edit the `.condarc` directly using a text editor."
 
 ---
@@ -31,7 +31,7 @@ $ conda config --show
 
 As you can see Conda supports a large number of configuration options.
 To show a single setting add the setting name after the `conda config --show` command.
-For example, to show the configurtion setting for the channels conda searches run:
+For example, to show the list of `channels` conda searches run:
 
 ~~~
 $ conda config --show channels
@@ -42,11 +42,11 @@ $ conda config --show channels
 channels:
   - defaults
 ~~~
-{: .output
+{: .output}
 
-By default conda only  searches the `defaults` channel, this is why we had to include `conda-forge` via the command line option `-c` in the previous episode.
+By default conda only  searches the `defaults` channel, this is why we had to include `conda-forge` and `bioconda` channels via the command line option `--channel` in the previous episode.
 
-To get more information about an individual setting run `conda config --describe <option>`. For Example;
+To get more information about an individual conda setting and its' possible values run `conda config --describe <option>`. For Example;
 
 ~~~
 conda config --describe channels
@@ -132,6 +132,12 @@ $conda config --prepend channels conda-forge
 > > $ conda config --get channels
 > > ~~~
 > > {: .language-bash}
+> > ~~~
+> > --add channels 'defaults'   # lowest priority
+> > --add channels 'bioconda'
+> > --add channels 'conda-forge'   # highest priority
+> > ~~~
+> > {: .output}
 > >
 > {: .solution}
 
