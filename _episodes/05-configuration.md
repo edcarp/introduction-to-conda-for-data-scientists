@@ -29,7 +29,9 @@ $ conda config --show
 ~~~
 {: .language-bash}
 
-As you can see Conda supports a large number of configuration options to show a single setting add the setting name after the `conda config --show` command.
+As you can see Conda supports a large number of configuration options.
+To show a single setting add the setting name after the `conda config --show` command.
+For example, to show the configurtion setting for the channels conda searches run:
 
 ~~~
 $ conda config --show channels
@@ -40,7 +42,9 @@ $ conda config --show channels
 channels:
   - defaults
 ~~~
-{: .output}
+{: .output
+
+By default conda only  searches the `defaults` channel, this is why we had to include `conda-forge` via the command line option `-c` in the previous episode.
 
 To get more information about an individual setting run `conda config --describe <option>`. For Example;
 
@@ -62,7 +66,7 @@ conda config --describe channels
 
 ## .condarc
 
-A user's conda setting are store in the runtime configuration configuration file, `.condarc`. The file  allows  users to configure various aspects of conda  including:
+A user's conda setting are store in the runtime configuration configuration file, `.condarc`. This file  allows  users to configure various aspects of conda  including:
 
 * Where conda looks for packages `channels`.
 
@@ -131,13 +135,12 @@ $conda config --prepend channels conda-forge
 > >
 > {: .solution}
 
-
-
 ## Setting configuration settings
 
-If our configuration setting has a  single value we can use `conda config --set` to set it.
+If our configuration setting has a single value we can use `conda config --set` to set it.
 
-For example: In a previous episode we set the command line prompt setting,  `env_prompt`.
+For example, In a previous episode we set the command line prompt setting for conda using  `env_prompt`.
+
 
 ~~~
 $ conda config --describe env_prompt
@@ -162,14 +165,14 @@ The `env_prompt` setting takes a value of either `'{prefix}'`, `'{name}'`, and
 ~~~
 {: .output}
 
-To set the `env_prompt` to the value `'({default_env})'` run:
+To set the `env_prompt` to the default value `'({default_env})'` we can run:
 
 ~~~
 $ conda config --set env_prompt '({default_env})'
 ~~~
 {: .language-bash}
 
-To change it back to the environment name.
+To change it back to the just the environment name, we can run.
 
 ~~~
 $ conda config --set env_prompt '({name})'
@@ -193,7 +196,7 @@ $ conda config --show-sources
 
 ## Getting help
 
-As with all conda commands you can use the `--help option`.
+As with all conda commands you can use the `--help` option to get help.
 
 For example,  for a complete list of `conda config` commands run
 
