@@ -1,5 +1,5 @@
 ---
-title: "Configuring conda"
+title: "Configuring Conda"
 teaching: 20
 exercises: 5
 questions:
