@@ -126,7 +126,7 @@ $conda config --prepend channels conda-forge
 > > ~~~
 > > {: .language-bash}
 > >
-> > The above sequence of commands will add the channels to your .condarc
+> > The above sequence of commands will add the channels to your `.condarc` .
 > > Use the command below to show the channel priority order.
 > > ~~~
 > > $ conda config --get channels
@@ -138,8 +138,8 @@ $conda config --prepend channels conda-forge
 > > --add channels 'conda-forge'   # highest priority
 > > ~~~
 > > {: .output}
-> >
 > {: .solution}
+{: .challenge}
 
 ## Setting configuration settings
 
@@ -200,10 +200,11 @@ $ conda config --set env_prompt '({name})'
 > > {: .language-bash}
 > > Using Strict channel priority can dramatically speed up conda operations and also reduce package incompatibility problems. This will be the default as of conda 5.0.
 > {: .solution}
+{: .challenge}
 
 
 
-## Editing the `.condarc` file manually.
+## Editing the `.condarc` file manually
 
 You can also use a text editor such as nano to directly edit the `.condarc`.
 
@@ -224,6 +225,7 @@ $ conda config --show-sources
 > > ~~~
 > > {: .language-bash}
 > {: .solution}
+{: .challenge}
 
 ## Getting help
 

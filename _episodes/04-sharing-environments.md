@@ -169,6 +169,7 @@ In short: to make sure others can reproduce your environment independent of the 
 > > To create a new environment from a YAML file use the `conda env create` sub-command as follows.
 > >
 > > ~~~
+> > $ cd ~/
 > > $ mkdir rnaseq-project-3
 > > $ cd rnaseq-project-3
 > > $ nano environment.yml
@@ -246,7 +247,7 @@ Note that the `--prune` option tells Conda to remove any installed packages not 
 > > new dependencies:
 > >
 > > ~~~
-> > $ cd ~/-project-3
+> > $ cd ~/rnaseq-project-3
 > > $ conda env create --prefix ./env --file environment.yml --force
 > > ~~~
 > > {: .language-bash}
@@ -262,7 +263,7 @@ Note that the `--prune` option tells Conda to remove any installed packages not 
 
 ## Restoring an environment
 
-Conda keeps a history of all the changes made to your environment, so you can easily "roll back" to a previous version. To list the history of each change to the current environment: `
+Conda keeps a history of all the changes made to your environment, so you can easily "roll back" to a previous version. To list the history of each change to the current environment:
 
 ~~~
 $ conda activate basic-rnaseq-env
@@ -280,7 +281,7 @@ $conda install --revision=REVNUM or conda install --rev REVNUM.
 For example,
 
 ~~~
-$ conda install --revision=0
+$ conda install --revision=1
 ~~~
 {: .language-bash}
 

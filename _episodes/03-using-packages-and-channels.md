@@ -279,6 +279,7 @@ $ conda install fastqc=0.11 multiqc=1.10 --channel conda-forge --channel biocond
 > > In order to create a new environment you use the `conda create` command as follows.
 > >
 > > ~~~
+> > cd ~/
 > > mkdir rnaseq-project
 > > cd rnaseq-project/
 > > conda create --prefix ./env --channel conda-forge \
@@ -420,7 +421,7 @@ environment.
 > >
 > > ~~~
 > > $ cd ~/r-project-dir
-> > $ conda install --prefix ./ pip
+> > $ conda install --prefix ./env pip
 > > $ conda activate ./env
 > > $ python -m pip install pandas
 > > ~~~
