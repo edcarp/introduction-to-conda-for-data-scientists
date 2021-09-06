@@ -1,0 +1,228 @@
+# Working with Environments
+
+## Creating environments
+conda create --name python3-env python
+conda create --name python36-env python=3.6
+conda search scikit-learn
+conda create --name basic-scipy-env ipython=7.13 matplotlib=3.1 numpy=1.18 scipy=1.4
+
+## Exercise: Creating a new environment
+conda create --name machine-learning-env \
+ ipython=7.19 \
+ matplotlib=3.3 \
+ pandas=1.2 \
+ python=3.8 \
+ scikit-learn=0.23 \
+ numba=0.51
+
+## Activating an existing environment
+conda activate basic-scipy-env
+
+##  Deactivate the active environment
+conda deactivate
+
+# : Activate an existing environment by name
+conda activate machine-learning-env
+conda deactivate
+
+## Installing a package into an existing environment
+conda activate basic-scipy-env
+conda install numba
+
+
+conda install scikit-learn=0.22
+
+## Remove a package from an environment
+conda uninstall scikit-learn -n basic-scipy-env
+
+## Exercise: Installing a package into a specific environment
+conda install --name machine-learning-env dask=2020.12
+
+
+## Where do Conda environments live?
+conda config --show envs_dirs
+
+## How do I specify a location for a Conda environment?
+conda create --prefix ./env ipython=7.13 matplotlib=3.1 pandas=1.0 python=3.6
+conda activate ./env
+
+
+## Exercise: Creating a new environment as a sub-directory within a project directory
+mkdir project-dir
+cd project-dir
+
+## Exercise Solution
+project-dir $ conda create --prefix ./env \
+python=3.6 \
+matplotlib=3.1 \
+tensorflow=2.0
+
+## set prompt
+conda config --set env_prompt '({name})'
+
+cd project-directory
+conda activate ./env
+
+#Conda can create environments for R projects too!
+cd ~/
+mkdir r-project-dir
+cd r-project-dir
+conda create --prefix ./env \
+r-base \
+r-tidyverse
+
+## Listing the contents of an environment
+conda list --name basic-scipy-env
+conda list --prefix /path/to/conda-env
+
+## Exercise: #Listing the contents of a particular environment.
+conda list --name machine-learning-env
+conda list
+
+## Deleting entire environments
+conda remove --name python36-env --all
+conda remove --prefix /path/to/conda-env/ --all
+conda remove --name machine-learning-env --all --yes
+
+# Lesson: Using Packages and
+
+conda create --name basic-rnaseq-env salmon
+
+## How do I search for a package from a specific channel?
+conda search --channel bioconda salmon
+
+## How do I install a package from a specific channel?
+conda create --name basic-rnaseq-env
+conda activate basic-rnaseq-env
+conda install --channel bioconda salmon
+
+
+## Specify multiple channels
+conda install salmon=1.5 --channel conda-forge --channel bioconda --name basic-rnaseq-env
+conda install fastqc=0.11 multiqc=1.10 --channel conda-forge --channel bioconda --name basic-rnaseq-env
+
+## Exercise: Specifying channels when installing packages
+cd ~/
+mkdir rnaseq-project
+cd rnaseq-project/
+conda create --prefix ./env --channel conda-forge \
+ --channel bioconda \
+ salmon=1.5 \
+ fastqc=0.11 \
+ multiqc=1.10
+
+
+## Exercise: Alternative syntax for installing packages from specific channels
+conda install biconda::multiqc  --prefix ./env
+
+
+## Channel priority
+
+conda create --name rproject-env --channel defaults --channel conda-forge r-base
+
+# A Python package isn’t available on any Conda channel! What should I do?
+conda deactivate
+which python
+which pip
+
+## Exercise: Installing packages into Conda environments using pip
+cd ~/r-project-dir
+conda install --prefix ./env pip
+conda activate ./env
+python -m pip install
+
+# Episode: Sharing Environments
+
+## Creating an environment file
+
+cat environment.yml
+
+cd ~/
+mkdir rnaseq-project-2
+cd rnaseq-project-2
+
+### create file environment.yml
+#name: rnaseq-env
+#channels:
+#  - conda-forge
+#  - bioconda
+#dependencies:
+#  - salmon=1.5
+#  - fastqc=0.11
+#  - multiqc=1.10
+
+conda env create --prefix ./env --file environment.yml
+conda activate ./env
+
+## Automatically generate an environment.yml
+conda env export --name basic-rnaseq-env
+conda env export --name basic-rnaseq-env --file environment.yml
+
+##--from-history
+conda env export --name basic-rnaseq-env --from-history --file environment.yml
+
+## Exercise: Create a new environment from a YAML file
+cd ~/
+mkdir rnaseq-project-3
+cd rnaseq-project-3
+nano environment.yml
+conda env create --file environment.yml
+## sub directory
+conda env create --file environment.yml --prefix ./env
+
+
+## Updating an environment
+cd ~/
+cd rnaseq-project-2
+conda env update --prefix ./env --file environment.yml  --prune
+
+## Callout: Rebuilding a Conda environment from scratch
+conda env create --prefix ./env --file environment.yml --force
+
+
+## Exercise : Update environment from environment.
+cd ~/rnaseq-project-3
+conda env create --prefix ./env --file environment.yml --force
+conda env update --prefix ./env --file environment.yml  --prune
+
+## Restoring an environment
+conda activate basic-rnaseq-env
+conda list --revisions
+conda install --revision=1
+
+## Exercise List revisions.
+cd ~/
+cd rnaseq-project-3
+conda activate ./env
+conda list --revisions
+
+# Episode Configuring conda
+
+conda config --show
+conda config --show channels
+conda config --describe channels
+
+## Creating or modify .condarc
+conda config --append channels conda-forge
+conda config --prepend channels conda-forge
+
+## Adding the channels bioconda and conda-forge to .condarc.
+conda config --prepend channels bioconda
+conda config --prepend channels conda-forge
+conda config --get channels
+
+## Setting configuration settings
+conda config --describe env_prompt
+conda config --set env_prompt '({default_env})'
+conda config --set env_prompt '({name})'
+
+## Exercise: Set conda channel_priority
+conda config --describe channel_priority
+conda config --set channel_priority strict
+conda config --show channel_priority
+
+## Editing the .condarc file manually.
+conda config --show-sources
+
+## Execise: Open .condarc with text editor
+nano ~/.condarc
