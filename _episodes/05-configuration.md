@@ -4,16 +4,17 @@ teaching: 20
 exercises: 5
 questions:
 
-- "How do I configure conda ?"
+- "How can I configure conda ?"
 - "How can I see conda's configuration values?"
-- "How can I modify conda's configure settings?"
+- "How can I modify conda's configuration settings?"
 objectives:
-- "Use the conda `config --show` to display all configuration values and `config --describe` to describe the function of a given configuration parameters."
+- "Use the conda `config --show` to display all configuration values."
 - "Modify the `.condarc` file using the `conda config` sub command."
-- "locate the `.condarc` file."
+- "locate and view the contents of the `.condarc` file."
 keypoints:
 - "The `.condarc` is an optional configuration file that stores custom conda setting."
-- "You can use the `conda config` subcommand to add, set or remove configuration setting in the `.condarc` file. You can also  edit the `.condarc` directly using a text editor."
+- "You can use the `conda config` subcommand to add, set or remove configuration setting in the `.condarc` file.
+- "You can also edit the contents of the `.condarc` file directly using a text editor."
 
 ---
 
