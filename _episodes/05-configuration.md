@@ -13,9 +13,8 @@ objectives:
 - "locate and view the contents of the `.condarc` file."
 keypoints:
 - "The `.condarc` is an optional configuration file that stores custom conda setting."
-- "You can use the `conda config` subcommand to add, set or remove configuration setting in the `.condarc` file.
+- "You can use the `conda config` subcommand to add, set or remove configuration setting in the `.condarc` file."
 - "You can also edit the contents of the `.condarc` file directly using a text editor."
-
 ---
 
 ## Configuration
