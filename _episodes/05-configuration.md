@@ -94,19 +94,73 @@ conda config <modifier> <KEY> <VALUE>
 
 To add the `conda-forge` to the list of `channels` we can use the `--add`, `--append` or `--prepend` modifier option:
 
-For example, if we want to add a channel to our list of `channels` in our configuration file rather than specific it on the command line every time we can can use the `--append` option modifier.
+For example, if we want to add a channel to our list of `channels` in our configuration file rather than specific it on the command line every time we can can use the `--add` option modifier.
 
 ~~~
-$conda config --append channels conda-forge
+$ conda config --add channels conda-forge
 ~~~
 {: .language-bash}
 
-To add `conda-forge` to the beginning of the channel list, giving it the highest priority use the `--preprend` modifier options.
+This would add the `conda-forge` channel to the top of the channel list.
+~~~
+$ conda config --show channels
+~~~
+{: .language-bash
 
 ~~~
-$conda config --prepend channels conda-forge
+channels:
+  - conda-forge
+  - defaults
+~~~
+{: .output}
+
+We can use the `conda config` modifier `--preprend` to add `conda-forge` to the end of the channel list, giving it the lowest priority.
+
+~~~
+$ conda config --prepend channels conda-forge
 ~~~
 {: .language-bash}
+
+~~~
+Warning: 'conda-forge' already in 'channels' list, moving to the bottom
+~~~
+{: .output}
+
+~~~
+$ conda config --show channels
+~~~
+{: .language-bash
+
+~~~
+channels:
+  - defaults
+  - conda-forge
+~~~
+{: .output}
+
+To move a channel to the highest priority use the `conda config` `--preprend` modifier.
+
+~~~
+$ conda config --append channels conda-forge
+~~~
+{: .language-bash}
+
+~~~
+Warning: 'conda-forge' already in 'channels' list, moving to the top
+~~~
+{: .output}
+
+~~~
+$ conda config --show channels
+~~~
+{: .language-bash
+
+~~~
+channels:
+  - conda-forge
+  - defaults
+~~~
+{: .output}
 
 
 **Note:** It is generally best to have `conda-forge` as the highest priority channel as this will usually have the most up-to-date packages.
@@ -114,11 +168,11 @@ $conda config --prepend channels conda-forge
 
 > ## Adding the channels bioconda and conda-forge to .condarc.
 >
-> Add the bioconda and conda-forge channels to  your .condarc file.
-> Which channel has the highest priority?
+> Add the `bioconda` and `conda-forge` channels to your .condarc file.
+> Give `conda-forge` the highest priority.
 > > ## Solution
 > >
-> > To add the bioconda and conda-forge channel to  your .condarc file use the command.
+> > To prepend the `bioconda` and `conda-forge` channel to  your .condarc file use the command.
 > >
 > > ~~~
 > > $ conda config --prepend channels bioconda
@@ -217,9 +271,14 @@ $ conda config --show-sources
 
 **Note:** If the .condarc file is in the root environment, it will override any in the home directory
 
-> ## Open `.condarc` with text editor
+> ## Locate and view the `.condarc`
+> Locate your `.condarc` file.
 > Using your favourite text editor look at the `.condarc`.
 > > ## Solution
+> > ~~~
+> > $ conda config --show-sources
+> > ~~~
+> > {: .language-bash}
 > > ~~~
 > > $ nano ~/.condarc
 > > ~~~
