@@ -30,7 +30,7 @@ $ conda config --show
 ~~~
 {: .language-bash}
 
-As you can see Conda supports a large number of configuration options.
+As you can see conda supports a large number of configuration options.
 To show a single setting add the setting name after the `conda config --show` command.
 For example, to show the list of `channels` conda searches run:
 
@@ -45,7 +45,7 @@ channels:
 ~~~
 {: .output}
 
-By default conda only  searches the `defaults` channel, this is why we had to include `conda-forge` and `bioconda` channels via the command line option `--channel` in the previous episode.
+By default conda only searches the `defaults` channel, this is why we had to include `conda-forge` and `bioconda` channels via the command line option `--channel` in the previous episode.
 
 To get more information about an individual conda setting and its' possible values run `conda config --describe <option>`. For Example;
 
@@ -67,7 +67,7 @@ conda config --describe channels
 
 ## .condarc
 
-A user's conda setting are store in the runtime configuration configuration file, `.condarc`. This file  allows  users to configure various aspects of conda  including:
+A user's conda setting are store in the runtime configuration configuration file, `.condarc`. This file  allows  users to configure various aspects of conda including:
 
 * Where conda looks for packages `channels`.
 
@@ -93,9 +93,9 @@ conda config <modifier> <KEY> <VALUE>
 
 ### Adding a configuration value
 
-To add the `conda-forge` to the list of `channels` we can use the `--add`, `--append` or `--prepend` modifier option:
+To add `conda-forge` to the list of `channels` we can use the `--add`, `--append` or `--prepend` modifier option:
 
-For example, if we want to add a channel to our list of `channels` in our configuration file rather than specific it on the command line every time we can can use the `--add` option modifier.
+For example, if we want to add a channel to our list of `channels` in our configuration file rather than specific it on the command line every time we can can use the `conda config` `--add` option modifier.
 
 ~~~
 $ conda config --add channels conda-forge
@@ -115,10 +115,10 @@ channels:
 ~~~
 {: .output}
 
-We can use the `conda config` modifier `--preprend` to add `conda-forge` to the end of the channel list, giving it the lowest priority.
+We can use the `conda config` modifier `--append` to add `conda-forge` to the end of the channel list, giving it the lowest priority.
 
 ~~~
-$ conda config --prepend channels conda-forge
+$ conda config --append channels conda-forge
 ~~~
 {: .language-bash}
 
@@ -139,10 +139,10 @@ channels:
 ~~~
 {: .output}
 
-To move a channel to the highest priority use the `conda config` `--preprend` modifier.
+To move a channel to the highest priority use the `conda config` `--prepend` modifier.
 
 ~~~
-$ conda config --append channels conda-forge
+$ conda config --prepend channels conda-forge
 ~~~
 {: .language-bash}
 
@@ -173,11 +173,11 @@ channels:
 > Give `conda-forge` the highest priority.
 > > ## Solution
 > >
-> > To prepend the `bioconda` and `conda-forge` channel to  your .condarc file use the command.
+> > To add the `bioconda` and `conda-forge` channel to  your .condarc file use the command.
 > >
 > > ~~~
-> > $ conda config --prepend channels bioconda
-> > $ conda config --prepend channels conda-forge
+> > $ conda config --add channels bioconda
+> > $ conda config --add channels conda-forge
 > > ~~~
 > > {: .language-bash}
 > >
@@ -198,7 +198,7 @@ channels:
 
 ## Setting configuration settings
 
-If our configuration setting has a single value we can use `conda config --set` to set it.
+If our configuration setting has a single boolean or string value we can use `conda config --set` to set it.
 
 For example, In a previous episode we set the command line prompt setting for conda using  `env_prompt`.
 
