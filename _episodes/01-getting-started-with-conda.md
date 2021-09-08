@@ -43,7 +43,7 @@ Many packages are being further developed all the time, generating different *ve
 
 ### Environments
 
-When starting with programming we may not use many packages yet and the installation may be straightforward. But for most people, there comes a time when one version of a package or also the programming language is not enough anymore. You may find an older tool that depends on an older version of your programming language (e.g. Pyhton 2.7), but many of your other tools depend on a newer version (e.g. Python 3.6). You could now start up another computer or virtual machine to run the other version of the programming language, but this is not very handy, since you may want to use the tools together in a workflow later on. Here, *environments* are one solution to the problem.
+When starting with programming we may not use many packages yet and the installation may be straightforward. But for most people, there comes a time when one version of a package or also the programming language is not enough anymore. You may find an older tool that depends on an older version of your programming language (e.g. Python 2.7), but many of your other tools depend on a newer version (e.g. Python 3.6). You could now start up another computer or virtual machine to run the other version of the programming language, but this is not very handy, since you may want to use the tools together in a workflow later on. Here, *environments* are one solution to the problem.
 Nowadays there are several environment management systems following a similar idea:
 Instead of having to use multiple computers or virtual machines to run different versions of the same package, you can install packages in isolated environments.
 
