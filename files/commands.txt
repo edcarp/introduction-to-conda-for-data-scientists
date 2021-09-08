@@ -21,7 +21,7 @@ conda activate basic-scipy-env
 ##  Deactivate the active environment
 conda deactivate
 
-# : Activate an existing environment by name
+## Exercise: Activate an existing environment by name
 conda activate machine-learning-env
 conda deactivate
 
@@ -84,7 +84,7 @@ conda remove --name python36-env --all
 conda remove --prefix /path/to/conda-env/ --all
 conda remove --name machine-learning-env --all --yes
 
-# Lesson: Using Packages and
+# Lesson: Using Packages and Channels
 
 conda create --name basic-rnaseq-env salmon
 
@@ -105,11 +105,12 @@ conda install fastqc=0.11 multiqc=1.10 --channel conda-forge --channel bioconda 
 cd ~/
 mkdir rnaseq-project
 cd rnaseq-project/
-conda create --prefix ./env --channel conda-forge \
- --channel bioconda \
- salmon=1.5 \
- fastqc=0.11 \
- multiqc=1.10
+conda create --prefix ./env \
+--channel conda-forge \
+--channel bioconda \
+salmon=1.5 \
+fastqc=0.11 \
+multiqc=1.10
 
 
 ## Exercise: Alternative syntax for installing packages from specific channels
@@ -129,7 +130,7 @@ which pip
 cd ~/r-project-dir
 conda install --prefix ./env pip
 conda activate ./env
-python -m pip install
+python -m pip install pandas
 
 # Episode: Sharing Environments
 
@@ -203,10 +204,17 @@ conda config --show channels
 conda config --describe channels
 
 ## Creating or modify .condarc
-conda config --append channels conda-forge
-conda config --prepend channels conda-forge
+## Adding a configuration value
+conda config --add channels conda-forge
+conda config --show channels
 
-## Adding the channels bioconda and conda-forge to .condarc.
+conda config --append channels conda-forge
+conda config --show channels
+
+conda config --prepend channels conda-forge
+conda config --show channels
+
+## Exercise: Adding the channels bioconda and conda-forge to .condarc.
 conda config --prepend channels bioconda
 conda config --prepend channels conda-forge
 conda config --get channels
@@ -225,4 +233,5 @@ conda config --show channel_priority
 conda config --show-sources
 
 ## Execise: Open .condarc with text editor
+conda config --show-sources
 nano ~/.condarc
