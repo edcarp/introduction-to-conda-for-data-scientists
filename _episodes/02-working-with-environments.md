@@ -91,7 +91,7 @@ $ conda create --name python3-env python
 For a list of all commands, take a look at [Conda general commands](https://docs.conda.io/projects/conda/en/latest/commands.html).
 
 It is a good idea to give your environment a meaningful name in order to help yourself remember
-the purpose of the environment. While naming things can be difficult, `$PROJECT_NAME-env` is a
+the purpose of the environment. While naming things can be difficult, `$PROJECT-NAME-env` is a
 good convention to follow. Sometimes also the specific version of a package why you had to create a new environment is a good name
 
 The command above will create a new Conda environment called "python3-env" and install the most recent version of Python. If you wish, you can specify a particular version of packages for `conda` to install when creating the environment.
@@ -188,7 +188,7 @@ sometimes at all!). Activation of an environment does two things.
 2. Runs any activation scripts that the environment may contain.
 
 Step 2 is particularly important as activation scripts are how packages can set arbitrary
-environment variables that may be necessary for their operation. Aou activate the
+environment variables that may be necessary for their operation. You activate the
 `basic-scipy-env` environment by name using the `activate` command.
 
 ~~~
