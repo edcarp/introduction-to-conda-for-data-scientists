@@ -203,13 +203,13 @@ You are unlikely to know ahead of time which packages (and version numbers!) you
 If any of these occurs during the course of your research project, all you need to do is update the contents of your `environment.yml` file accordingly and then run the following command.
 
 ~~~
-$ cd
+$ cd ~/
 $ cd rnaseq-project-2
 $ conda env update --prefix ./env --file environment.yml  --prune
 ~~~
 {: .language-bash}
 
-Note that the `--prune` option tells Conda to remove any installed packages not defined in environment.yml
+Note that the `--prune` option tells conda to remove any installed packages not defined in environment.yml
 
 > ## Rebuilding a Conda environment from scratch
 >
@@ -274,7 +274,7 @@ $ conda list --revisions
 To restore environment to a previous revision:
 
 ~~~
-$conda install --revision=REVNUM or conda install --rev REVNUM.
+$ conda install --revision=REVNUM or conda install --rev REVNUM.
 ~~~
 {: .language-bash}
 
