@@ -413,7 +413,7 @@ environment.
 > [pandas](https://pandas.pydata.org/)  pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation too
 >
 > Activate the conda environment `env` in the directory `r-project-dir` you created in a previous challenge and use `pip` to install
-> `combo`.
+> `pandas`.
 >
 > > ## Solution
 > >
