@@ -20,7 +20,7 @@ keypoints:
 ## Configuration
 
 Conda has a number of configuration setting which control how it performs.
-To display and control these setting we can use the `config config` subcommand.
+To display and control these setting we can use the `conda config` subcommand.
 
 To display all configuration settings run the `config --show` subcommand :
 
