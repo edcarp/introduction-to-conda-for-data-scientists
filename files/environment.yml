@@ -5,4 +5,4 @@ channels:
 dependencies:
   - salmon=1.5
   - fastqc=0.11
-  - multiqc=1.1
+  - multiqc=1.11
