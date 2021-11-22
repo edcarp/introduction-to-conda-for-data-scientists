@@ -64,7 +64,7 @@ channels:
 dependencies:
   - salmon=1.5
   - fastqc=0.11
-  - multiqc=1.10
+  - multiqc=1.11
 ~~~
 {: .language-yaml}
 
@@ -98,7 +98,7 @@ channels:
 dependencies:
   - salmon=1.5
   - fastqc=0.11
-  - multiqc=1.10
+  - multiqc=1.11
 ~~~
 {: .language-yaml}
 
@@ -156,7 +156,7 @@ In short: to make sure others can reproduce your environment independent of the 
 > dependencies:
 >   - salmon=1.5
 >   - fastqc=0.11
->   - multiqc=1.10
+>   - multiqc=1.11
 > ~~~
 > {: .language-yaml}
 >
@@ -239,7 +239,7 @@ Note that the `--prune` option tells conda to remove any installed packages not 
 >   - bioconda
 > dependencies:
 >   - fastqc=0.11
->   - multiqc=1.10
+>   - multiqc=1.11
 >   - kallisto=0.46
 > > ~~~
 > >
