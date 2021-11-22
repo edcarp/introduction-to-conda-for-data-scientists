@@ -272,7 +272,7 @@ $ conda install fastqc=0.11 multiqc=1.10 --channel conda-forge --channel biocond
 >
 > Create a new directory called `rnaseq-project` and then create an
 > environment in a sub-directory called `env/` with the the packages salmon=1.5,
-> fastqc=0.11 and multiqc=1.10.
+> fastqc=0.11 and multiqc=1.11.
 >
 > > ## Solution
 > >
@@ -286,7 +286,7 @@ $ conda install fastqc=0.11 multiqc=1.10 --channel conda-forge --channel biocond
 > >  --channel bioconda \
 > >  salmon=1.5 \
 > >  fastqc=0.11 \
-> >  multiqc=1.10
+> >  multiqc=1.11
 > > ~~~
 > > {: .language-bash}
 > >
