@@ -449,12 +449,14 @@ environments is that your command prompt is now prefixed with the active environ
 ~~~
 (/absolute/path/to/env) $
 ~~~
+{: .language-bash}
 
 As you can imagine, this can quickly get out of hand.
 
 ~~~
 (/Users/USER_NAME/research/data-science/PROJECT_NAME/env) $
 ~~~
+{: .language-bash}
 
 If (like me!) you find this long prefix to your shell prompt annoying, then there is a quick fix:
 modify the `env_prompt` setting in your `.condarc` file, which you can do with the following
