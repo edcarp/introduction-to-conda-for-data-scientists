@@ -1,0 +1,8 @@
+name: rnaseq-env
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - salmon=1.5
+  - fastqc=0.11
+  - multiqc=1.1
