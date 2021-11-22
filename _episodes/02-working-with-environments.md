@@ -299,11 +299,13 @@ To remove a package from an environment you can run the command.
 ~~~
 $ conda uninstall PKGNAME --name ENVNAME
 ~~~
+{: .language-bash}
 
 For example to remove the scikit-learn package from the basic-scipy-env environment run
 ~~~
-$conda uninstall scikit-learn -n basic-scipy-env
+$ conda uninstall scikit-learn --name basic-scipy-env
 ~~~
+{: .language-bash}
 
 > ## Installing a package into a specific environment
 >
