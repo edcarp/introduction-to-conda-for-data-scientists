@@ -99,7 +99,7 @@ conda install --channel bioconda salmon
 
 ## Specify multiple channels
 conda install salmon=1.5 --channel conda-forge --channel bioconda --name basic-rnaseq-env
-conda install fastqc=0.11 multiqc=1.10 --channel conda-forge --channel bioconda --name basic-rnaseq-env
+conda install fastqc=0.11 multiqc=1.11 --channel conda-forge --channel bioconda --name basic-rnaseq-env
 
 ## Exercise: Specifying channels when installing packages
 cd ~/
@@ -110,7 +110,7 @@ conda create --prefix ./env \
 --channel bioconda \
 salmon=1.5 \
 fastqc=0.11 \
-multiqc=1.10
+multiqc=1.11
 
 
 ## Exercise: Alternative syntax for installing packages from specific channels
@@ -150,7 +150,7 @@ cd rnaseq-project-2
 #dependencies:
 #  - salmon=1.5
 #  - fastqc=0.11
-#  - multiqc=1.10
+#  - multiqc=1.11
 
 conda env create --prefix ./env --file environment.yml
 conda activate ./env
