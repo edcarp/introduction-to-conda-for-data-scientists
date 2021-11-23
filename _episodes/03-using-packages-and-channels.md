@@ -412,18 +412,17 @@ environment.
 >
 > [pandas](https://pandas.pydata.org/)  pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation too
 >
-> Activate the conda environment `env` in the directory `r-project-dir` you created in a previous challenge and use `pip` to install
+> Activate the conda environment ` python3-env` and use `pip` to install
 > `pandas`.
 >
 > > ## Solution
 > >
-> > The following commands will activate the `rnaseq-env` and install the python data analysis library `pandas`.
+> > The following commands will activate the ` python3-env` and install the python data analysis library `pandas`.
 > >
 > > ~~~
-> > $ cd ~/r-project-dir
-> > $ conda install --prefix ./env pip
-> > $ conda activate ./env
-> > $ python -m pip install pandas
+> > $ conda activate python3-env  
+> > ( python3-env) $ conda install pip
+> > ( python3-env) $ python -m pip install pandas
 > > ~~~
 > > {: .language-bash}
 > >
