@@ -160,8 +160,6 @@ In short: to make sure others can reproduce your environment independent of the 
 >  - pandas  
 > ~~~
 > {: .language-yaml}
-
-
 {: .callout}
 
 > ## Create a new environment from a YAML file.
