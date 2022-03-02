@@ -143,6 +143,27 @@ $ conda env export --name basic-rnaseq-env --from-history --file environment.yml
 
 In short: to make sure others can reproduce your environment independent of the operating system they use, make sure to add the `--from-history` argument to the `conda env export` command.
 
+> ## Pip and conda env export `--from-history`
+>
+> Python packages installed via pip are not exported using the conda env export `--from-history` argument.
+> You can add them to the environment YAML file using the keyword `pip:` followed by a list of python packages, For example;
+> ~~~
+> name: rnaseq-env
+> channels:
+>  - conda-forge
+>  - bioconda
+> dependencies:
+>  - salmon=1.5
+>  - fastqc=0.11
+>  - multiqc=1.11
+>  pip:
+>  - pandas  
+> ~~~
+> {: .language-yaml}
+
+
+{: .callout}
+
 > ## Create a new environment from a YAML file.
 >
 > Create a new project directory rnaseq-project-3 and then create a new `environment.yml` file inside your project
