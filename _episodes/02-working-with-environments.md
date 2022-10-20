@@ -179,6 +179,17 @@ because it is a required dependency of at least one of the listed packages.
 > {: .solution}
 {: .challenge}
 
+
+
+> ##  Renaming a conda environment
+> As of conda version 4.14.0 you can  rename a conda environment with the `conda rename` command. 
+> conda rename supports renaming your current environment, or any of your existing environments.
+> ~~~
+> conda rename -n old_env_name new_env_name
+> ~~~
+> {: .language-bash}
+{: .callout}
+
 ## Activating an existing environment
 
 Activating environments is essential to making the software in environments work well (or
